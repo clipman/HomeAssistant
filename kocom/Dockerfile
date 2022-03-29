@@ -1,5 +1,5 @@
 #ARG BUILD_FROM="alpine:latest"
-FROM python:
+FROM python:3.7
 
 ENV LANG C.UTF-8
 

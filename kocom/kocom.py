@@ -28,17 +28,6 @@ SW_VERSION = 'Kocom RS485 Compilation 1.0.0'
 INIT_TEMP = 23
 INIT_FAN_MODE = '2'  #'1': Low, '2': Medium, '3': High
 LIGHT_COUNT = 2
-####################### Start Here by clipman ###########################
-option_file = '/data/config.json'                                                                                             
-if os.path.isfile(option_file):                                                                                                
-    with open(option_file) as json_file:                                                                                   
-        json_data = json.load(json_file)                                                                               
-        INIT_TEMP = json_data['Advanced']['INIT_TEMP']                                                                 
-        INIT_FAN_MODE = json_data['Advanced']['INIT_FAN_MODE']                                                         
-        LIGHT_COUNT = json_data['Advanced']['LIGHT_COUNT'] 
-        DEFAULT_SPEED = json_data['Advanced']['DEFAULT_SPEED'] 
-        CONF_LOGLEVEL = json_data['Advanced']['LOGLEVEL']
-####################### End Here by clipman ###########################
 
 CONFIG_FILE = 'kocom.conf'
 BUF_SIZE = 100

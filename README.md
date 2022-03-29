@@ -1,2 +1,2 @@
 # Home Assistant Supervisor Addons
-Home Assistant Supervisor Addons
+- Hass.io Add-on: Kocom Wallpad with RS485

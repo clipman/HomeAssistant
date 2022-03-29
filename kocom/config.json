@@ -68,7 +68,7 @@
     },
     "Elevator": {
       "type": "str?",
-      "rs485_floor": "int?"
+      "rs485_floor": "str?"
     },
     "Log": {
       "show_query_hex": "bool?",
@@ -76,9 +76,9 @@
       "show_mqtt_publish": "bool?"
     },
     "Advanced": {
-      "INIT_TEMP": "int(10,30)",
+      "INIT_TEMP": "str?",
       "INIT_FAN_MODE": "str?",
-      "LIGHT_COUNT": "int(1,20)"
+      "LIGHT_COUNT": "str?"
     }
   }
 }

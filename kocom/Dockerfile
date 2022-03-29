@@ -1,6 +1,5 @@
-#ARG BUILD_FROM=ubuntu:18.04
-#FROM $BUILD_FROM
-FROM ubuntu:18.04
+#ARG BUILD_FROM="alpine:latest"
+FROM python:
 
 ENV LANG C.UTF-8
 
@@ -9,8 +8,8 @@ COPY run.sh kocom.conf kocom.py /
 
 # Install requirements for add-on
 RUN apt-get update && apt-get -y install jq
-#RUN python3 -m pip install pyserial && \
-#        python3 -m pip install paho-mqtt
+RUN python3 -m pip install pyserial && \
+        python3 -m pip install paho-mqtt
 
 WORKDIR /share
 

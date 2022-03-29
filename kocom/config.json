@@ -1,8 +1,8 @@
 {
-  "name": "Kocom Wallpad Controller with RS485",
-  "version": "1.1.1",
-  "slug": "kocom_wallpad",
-  "description": "Kocom Wallpad Controller for Homeassistant",
+  "name": "Kocom Wallpad with RS485",
+  "version": "1.0.0",
+  "slug": "kocom_wallpad_ha",
+  "description": "Kocom Wallpad for Home Assistant",
   "arch": [
     "armhf",
     "armv7",
@@ -10,7 +10,7 @@
     "amd64",
     "i386"
   ],
-  "url": "https://github.com/HAKorea/addons",
+  "url": "https://github.com/clipman/addons",
   "startup": "application",
   "boot": "auto",
   "uart": true,
@@ -19,159 +19,48 @@
   ],
   "options": {
     "RS485": {
-      "type": "Serial"
-    },
-    "Socket": {
-      "server": "192.168.x.x",
-      "port": 8899
-    },
-    "SocketDevice": {
-      "device": "kocom"
-    },
-    "Serial": {
-      "port1": "/dev/ttyUSB0"
-    },
-    "SerialDevice": {
-      "port1": "kocom"
+      "type": "socket",
+      "socket_server": "192.168.219.195",
+      "socket_port": "8899"
+      "serial_port": "/dev/ttyUSB0"
     },
     "MQTT": {
-      "anonymous": false,
-      "server": "192.168.x.x",
-      "username": "id",
-      "password": "pw"
+      "mqtt_server": "192.168.219.130",
+      "mqtt_port": "1883",
+      "mqtt_username": "admin",
+      "mqtt_password": "admin3844",
+      "mqtt_allow_anonymous": false
     },
-    "Wallpad": {
-      "light": false,
-      "plug": false,
-      "thermostat": false,
-      "fan": false,
-      "gas": false,
-      "elevator": false
+    "Device": {
+      "enabled": "light, fan, thermo_livingroom, thermo_room1, thermo_room2, thermo_room3, elevator"
     },
     "Advanced": {
-      "INIT_TEMP": 22,
-      "SCAN_INTERVAL": 300,
-      "SCANNING_INTERVAL": 0.8,
-      "DEFAULT_SPEED" : "medium",
-      "LOGLEVEL" : "info"
-    },
-    "KOCOM_LIGHT_SIZE": [
-      {
-        "name": "livingroom",
-        "number": 3
-      },
-      {
-        "name": "bedroom",
-        "number": 2
-      },
-      {
-        "name": "room1",
-        "number": 2
-      },
-      {
-        "name": "room2",
-        "number": 2
-      },
-      {
-        "name": "kitchen",
-        "number": 3
-      }
-    ],
-    "KOCOM_PLUG_SIZE": [
-      {
-        "name": "livingroom",
-        "number": 3
-      },
-      {
-        "name": "bedroom",
-        "number": 2
-      },
-      {
-        "name": "room1",
-        "number": 2
-      },
-      {
-        "name": "room2",
-        "number": 2
-      },
-      {
-        "name": "kitchen",
-        "number": 3
-      }
-    ],
-    "KOCOM_ROOM": [
-      "livingroom",
-      "bedroom",
-      "room1",
-      "room2",
-      "kitchen"
-    ],
-    "KOCOM_ROOM_THERMOSTAT": [
-      "livingroom",
-      "bedroom",
-      "room1",
-      "room2"
-    ]
+      "INIT_TEMP": 23,
+      "INIT_FAN_MODE": "2",
+      "LIGHT_COUNT": 2
+    }
   },
   "schema": {
     "RS485": {
-      "type": "list(Serial|Socket)"
-    },
-    "Socket": {
-      "server": "str?",
-      "port": "int?"
-    },
-    "SocketDevice": {
-      "device": "str?"
-    },
-    "Serial": {
-      "port1": "str?",
-      "port2": "str?",
-      "port3": "str?"
-    },
-    "SerialDevice": {
-      "port1": "str?",
-      "port2": "str?",
-      "port3": "str?"
+      "type": "list(serial|socket)",
+      "socket_server": "str",
+      "socket_port": "str",
+      "serial_port": "str"
     },
     "MQTT": {
-      "anonymous": "bool",
-      "server": "str",
-      "username": "str",
-      "password": "str"
+      "mqtt_server": "str",
+      "mqtt_port": "str",
+      "mqtt_username": "str",
+      "mqtt_password": "str",
+      "mqtt_allow_anonymous": "bool"
     },
-    "Wallpad": {
-      "light": "bool",
-      "plug": "bool",
-      "thermostat": "bool",
-      "fan": "bool",
-      "gas": "bool",
-      "elevator": "bool"
+    "Device": {
+      "enabled": "str"
     },
     "Advanced": {
       "INIT_TEMP": "int(10,30)",
-      "SCAN_INTERVAL": "int(100,1000)",
-      "SCANNING_INTERVAL": "float",
-      "DEFAULT_SPEED" : "str",
-      "LOGLEVEL" : "str"
-    },
-    "KOCOM_LIGHT_SIZE": [
-      {
-        "name": "str?",
-        "number": "int?"
-      }
-    ],
-    "KOCOM_PLUG_SIZE": [
-      {
-        "name": "str?",
-        "number": "int?"
-      }
-    ],
-    "KOCOM_ROOM": [
-      "str?"
-    ],
-    "KOCOM_ROOM_THERMOSTAT": [
-      "str?"
-    ]
+      "INIT_FAN_MODE" : "str",
+      "LIGHT_COUNT": "int(1,20)"
+    }
   }
 }

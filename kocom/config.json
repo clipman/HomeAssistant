@@ -52,32 +52,32 @@
   "schema": {
     "RS485": {
       "type": "list(serial|socket)",
-      "socket_server": "str",
-      "socket_port": "str",
-      "serial_port": "str"
+      "socket_server": "str?",
+      "socket_port": "str?",
+      "serial_port": "str?"
     },
     "MQTT": {
-      "mqtt_server": "str",
-      "mqtt_port": "str",
-      "mqtt_username": "str",
-      "mqtt_password": "str",
-      "mqtt_allow_anonymous": "bool"
+      "mqtt_server": "str?",
+      "mqtt_port": "str?",
+      "mqtt_username": "str?",
+      "mqtt_password": "str?",
+      "mqtt_allow_anonymous": "bool?"
     },
     "Device": {
-      "enabled": "str"
+      "enabled": "str?"
     },
     "Elevator": {
-      "type": "str",
-      "rs485_floor": "int(1,100)"
+      "type": "str?",
+      "rs485_floor": "int?"
     },
     "Log": {
-      "show_query_hex": "bool",
-      "show_recv_hex": "bool",
-      "show_mqtt_publish": "bool"
+      "show_query_hex": "bool?",
+      "show_recv_hex": "bool?",
+      "show_mqtt_publish": "bool?"
     },
     "Advanced": {
       "INIT_TEMP": "int(10,30)",
-      "INIT_FAN_MODE" : "str",
+      "INIT_FAN_MODE" : "str?",
       "LIGHT_COUNT": "int(1,20)"
     }
   }

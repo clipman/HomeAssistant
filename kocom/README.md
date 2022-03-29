@@ -5,7 +5,7 @@
 ## About
 Kocom Wallpad with RS485
 
-## Version : 1.1.1
+## Version : 1.0.0
 - Kocom Wallpad with RS485
 
 ## Installation
@@ -36,8 +36,7 @@ You have several options to get them answered:
 
 
 [forum]: https://cafe.naver.com/koreassistant
-[github]: https://github.com/HAKorea/addons
-[issue]: https://github.com/zooil/wallpadRS485/issues
+[github]: https://github.com/clipman/addons
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
 [armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg

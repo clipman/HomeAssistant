@@ -1,5 +1,6 @@
-#ARG BUILD_FROM="alpine:latest"
-FROM python:3
+#ARG BUILD_FROM=ubuntu:18.04
+#FROM $BUILD_FROM
+FROM ubuntu:18.04
 
 ENV LANG C.UTF-8
 

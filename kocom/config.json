@@ -34,6 +34,15 @@
     "Device": {
       "enabled": "light, fan, thermo_livingroom, thermo_room1, thermo_room2, thermo_room3, elevator"
     },
+    "Elevator": {
+      "type": "rs485",
+      "rs485_floor": "15"
+    },
+    "Log": {
+      "show_query_hex": true,
+      "show_recv_hex": true,
+      "show_mqtt_publish": true
+    },
     "Advanced": {
       "INIT_TEMP": 23,
       "INIT_FAN_MODE": "2",
@@ -56,6 +65,15 @@
     },
     "Device": {
       "enabled": "str"
+    },
+    "Elevator": {
+      "type": "str",
+      "rs485_floor": "int(1,100)"
+    },
+    "Log": {
+      "show_query_hex": "bool",
+      "show_recv_hex": "bool",
+      "show_mqtt_publish": "bool"
     },
     "Advanced": {
       "INIT_TEMP": "int(10,30)",

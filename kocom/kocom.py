@@ -29,7 +29,7 @@ INIT_TEMP = 23
 INIT_FAN_MODE = '2'  #'1': Low, '2': Medium, '3': High
 LIGHT_COUNT = 2
 ####################### Start Here by clipman ###########################
-option_file = '/data/kocom.json'                                                                                             
+option_file = '/data/option.json'                                                                                             
 if os.path.isfile(option_file):                                                                                                
     with open(option_file) as json_file:                                                                                   
         json_data = json.load(json_file)                                                                               

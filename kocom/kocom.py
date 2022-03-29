@@ -11,6 +11,9 @@
  python3 -m pip install paho-mqtt
 '''
 import os
+import os.path
+import serial
+import socket
 import time
 import platform
 import threading
@@ -20,9 +23,7 @@ import json
 import paho.mqtt.client as mqtt
 import logging
 import configparser
-
-# Version
-SW_VERSION = 'Kocom RS485 Compilation 1.0.0'
+from collections import OrderedDict
 
 # define -------------------------------
 INIT_TEMP = 23

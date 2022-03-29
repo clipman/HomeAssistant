@@ -1,14 +1,12 @@
-# Hass.io Add-on: Kocom Wallpad Controller with RS485 
+# Hass.io Add-on: Kocom Wallpad with RS485 
 
 ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armhf Architecture][armhf-shield] ![Supports armv7 Architecture][armv7-shield] ![Supports i386 Architecture][i386-shield]
 
 ## About
-랜이님이 만든 코콤 월패드 프로그램을 애드온으로 만든 것입니다.
+Kocom Wallpad with RS485
 
 ## Version : 1.1.1
-- auto_uart deprecated. change to uart config
-- alpine linux images를 python3 이미지로 교체
-- CPU 최적화 및 딜레이 수정
+- Kocom Wallpad with RS485
 
 ## Installation
 

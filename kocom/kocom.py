@@ -11,9 +11,6 @@
  python3 -m pip install paho-mqtt
 '''
 import os
-import os.path
-import serial
-import socket
 import time
 import platform
 import threading
@@ -23,21 +20,11 @@ import json
 import paho.mqtt.client as mqtt
 import logging
 import configparser
-from collections import OrderedDict
 
 # define -------------------------------
 INIT_TEMP = 23
 INIT_FAN_MODE = '2'  #'1': Low, '2': Medium, '3': High
 LIGHT_COUNT = 2
-####################### Start Here by clipman ###########################
-option_file = '/data/option.json'                                                                                             
-if os.path.isfile(option_file):                                                                                                
-    with open(option_file) as json_file:                                                                                   
-        json_data = json.load(json_file)                                                                               
-        INIT_TEMP = json_data['Advanced']['INIT_TEMP']                                                                 
-        INIT_FAN_MODE = json_data['Advanced']['INIT_FAN_MODE']                                                         
-        LIGHT_COUNT = json_data['Advanced']['LIGHT_COUNT'] 
-####################### End Here by clipman ###########################
 
 CONFIG_FILE = 'kocom.conf'
 BUF_SIZE = 100

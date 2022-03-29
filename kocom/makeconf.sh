@@ -1,7 +1,7 @@
 #!/bin/sh
 
 CONFIG_FILE=/data/options.json
-CONFIG_RS485=/share/kocom/rs485.conf
+CONFIG_RS485=/share/kocom/kocom.conf
 
 CONFIG=`cat $CONFIG_FILE`
 

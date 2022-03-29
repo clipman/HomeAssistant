@@ -44,9 +44,9 @@
       "show_mqtt_publish": true
     },
     "Advanced": {
-      "INIT_TEMP": 23,
+      "INIT_TEMP": "23",
       "INIT_FAN_MODE": "2",
-      "LIGHT_COUNT": 2
+      "LIGHT_COUNT": "2"
     }
   },
   "schema": {

@@ -1,5 +1,5 @@
 #ARG BUILD_FROM="alpine:latest"
-FROM python:3.10
+FROM python:3
 
 ENV LANG C.UTF-8
 
@@ -7,7 +7,7 @@ ENV LANG C.UTF-8
 COPY run.sh kocom.conf kocom.py /
 
 # Install requirements for add-on
-RUN apt-get update && apt-get -y install jq
+#RUN apt-get update && apt-get -y install jq
 RUN python3 -m pip install pyserial
 RUN python3 -m pip install paho-mqtt
 

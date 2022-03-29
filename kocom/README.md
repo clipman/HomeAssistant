@@ -3,15 +3,17 @@
 ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armhf Architecture][armhf-shield] ![Supports armv7 Architecture][armv7-shield] ![Supports i386 Architecture][i386-shield]
 
 ## About
-Kocom Wallpad with RS485
+랜이님이 만든 코콤 월패드 프로그램을 애드온으로 만든 것입니다.
 
-## Version : 1.0.0
-- Kocom Wallpad with RS485
+## Version : 1.1.1
+- auto_uart deprecated. change to uart config
+- alpine linux images를 python3 이미지로 교체
+- CPU 최적화 및 딜레이 수정
 
 ## Installation
 
-1. 홈어시스턴트의 Hass.io > ADD-ON STORE에서 Add new repository by URL에 https://github.com/clipman/addons 를 입력한 다음 ADD 버튼을 누릅니다.
-2. ADD-ON STORE 페이지 하단에서 "Kocom Wallpad with RS485" 클릭합니다.
+1. 홈어시스턴트의 Hass.io > ADD-ON STORE에서 Add new repository by URL에 https://github.com/HAKorea/addons 를 입력한 다음 ADD 버튼을 누릅니다.
+2. ADD-ON STORE 페이지 하단에서 "Kocom Wallpad Controller with RS485" 클릭합니다.
 3. "INSTALL" 버튼을 누르면 애드온이 설치됩니다. 최대 약 10분 정도 소요. 
 4. INSTALL 버튼위에 설치 애니메이션이 동작하는데 이것이 멈추더라도 REBUILD, START 버튼이 나타나지 않는 경우가 있습니다.
 5. 이 애드온은 이미지를 내려받는 것이 아니라 직접 여러분의 Hassio에서 이미지를 만듭니다. 따라서 컴퓨터성능과 인터넷 속도에 따라서 시간이 좀 걸립니다. 
@@ -19,53 +21,197 @@ Kocom Wallpad with RS485
 7. 애드온 페이지에서 Config을 본인의 환경에 맞게 수정합니다.
 8. "START" 버튼으로 애드온을 실행합니다.
 
-kocom.py 파일을 수정하시려면 한번 실행한 후 애드온을 Stop 하시고 share/kocom/ 폴더에 있는 파일을 알맞게 수정하신 다음 애드온을 Start 하시면 이후부터는 수정된 파일을 적용합니다.
+만일 rs485.py 파일을 수정하시려면 한번 실행한 후 애드온을 Stop 하시고 share/kocom/ 폴더에 있는 파일을 알맞게 수정하신 다음 애드온을 Start 하시면 이후부터는 수정된 파일을 적용합니다.
 
-# kocom.py
+## Configuration
 
-[Change log]
+Add-on configuration:
 
-(2022-03-29 수정) 전열교환기(Fan) 프리셋모드 추가 및 초기모드 사용자 설정, 난방 초기온도 설정
+```yaml
+RS485:
+  type: Serial
+Socket:
+  server: 192.168.x.x
+  port: 8899
+SocketDevice:
+  device: kocom
+Serial:
+  port1: /dev/ttyUSB0
+SerialDevice:
+  port1: kocom
+MQTT:
+  anonymous: false
+  server: 192.168.x.x
+  username: id
+  password: pw
+Wallpad:
+  light: false
+  plug: false
+  thermostat: false
+  fan: false
+  gas: false
+  elevator: false
+Advanced:
+  INIT_TEMP: 22
+  SCAN_INTERVAL: 300
+  SCANNING_INTERVAL: 0.8
+  DEFAULT_SPEED: medium
+  LOGLEVEL: info
+KOCOM_LIGHT_SIZE:
+  - name: livingroom
+    number: 3
+  - name: bedroom
+    number: 2
+  - name: room1
+    number: 2
+  - name: room2
+    number: 2
+  - name: kitchen
+    number: 3
+KOCOM_PLUG_SIZE:
+  - name: livingroom
+    number: 3
+  - name: bedroom
+    number: 2
+  - name: room1
+    number: 2
+  - name: room2
+    number: 2
+  - name: kitchen
+    number: 3
+KOCOM_ROOM:
+  - livingroom
+  - bedroom
+  - room1
+  - room2
+  - kitchen
+KOCOM_ROOM_THERMOSTAT:
+  - livingroom
+  - bedroom
+  - room1
+  - room2
+```
 
-Example configuration.yaml with command templates
+### Option: `RS485` (required)
+```yaml
+type: Serial                    // Serial 혹은 Socket
+```
+### Option: `Socket` (required)
+```yaml
+server: 192.168.x.x           // Socket 쓸 경우 socket IP주소
+port: 8899                        // Socket 쓸 경우 socket PORT번호
+```
+### Option: `SocketDevice` (required)
+```yaml
+device: kocom               // socket 쓸 경우 월패드 이름{{장치이름}}
+```
+### Option: `Serial` (required)
+```yaml
+port1: /dev/ttyUSB0        // serial 쓸 경우 (월패드 혹은 그렉스)의 장치경로 작성
+port2: /dev/ttyUSB1        // serial 쓸 경우 (월패드 혹은 그렉스)의 장치경로 작성
+port3: /dev/ttyUSB2        // serial 쓸 경우 (월패드 혹은 그렉스)의 장치경로 작성
+```
+port2, port3는 추가,삭제 가능
 
-fan:
-  - platform: mqtt
-    name: Livingroom Fan
-    command_topic: "kocom/livingroom/fan/command"
-    state_topic: "kocom/livingroom/fan/state"
-    state_value_template: "{{ value_json.state }}"
-    preset_mode_state_topic: "kocom/livingroom/fan/state"
-    preset_mode_value_template: "{{ value_json.level }}"
-    preset_mode_command_topic: "kocom/livingroom/fan/set_preset_mode/command"
-    preset_mode_command_template: "{{ value }}"
-    preset_modes:
-      - "0"
-      - "1"
-      - "2"
-      - "3"
-    payload_on: "on"
-    payload_off: "off"
-    qos: 0
+### Option `SerialDevice` (required)
+```yaml
+port1: kocom               // serial 쓸 경우 (월패드 이름 혹은 그렉스 이름) 작성{{장치이름}}
+port2: grex_ventilator     // serial 쓸 경우 (월패드 이름 혹은 그렉스 이름) 작성{{장치이름}}
+port3: grex_controller     // serial 쓸 경우 (월패드 이름 혹은 그렉스 이름) 작성{{장치이름}}
+```
+port2, port3는 추가,삭제 가능
 
--------------------------------------------------------------------------------------
+{{장치이름}}
+kocom = 코콤월패드
+grex_ventilator = 그렉스 환기장치
+grex_controller = 그렉스 환기장치의 리모콘(환기모드, 정지 등)
 
-(2020.9.25 수정) 엘리베이터 도착정보 추가, minor changes
+### Option `MQTT` (required)
+```yaml
+anonymous: false           // MQTT 설정
+server: 192.168.x.xx         // MQTT 서버
+username: id                 // MQTT ID
+password: pw                // MQTT PW
+```
 
-(2019.12.9 수정) github 개설, serial 강제 종료시 error handling
+### Option `Wallpad` (required)
+```yaml
+light: true                    // 조명 
+plug: true                    // 플러그 
+thermostat: true            // 난방 
+fan: true                     // 환기팬 
+gas: true                     // 가스 
+elevator: true               // 엘레베이터 
+```
 
-(2019.11.19 수정) 패킷발송 후 기기상태 수신시까지 다음패킷 발송않도록 처리, 충돌시 random jump, 패킷타이밍 튜닝기능(read_write_gap변수)
+### Option `Advanced` (required)
+```yaml
+INIT_TEMP: 22           // 보일러 초기값
+SCAN_INTERVAL: 300      // 월패드의 상태값 조회 간격
+SCANNING_INTERVAL: 0.5  // 상태값 조회 시 패킷전송 간격
+DEFAULT_SPEED: medium   //환풍기 초기속도 low, medium, high
+LOGLEVEL: info , debug, info, warn 중에 하나
+```
+### Option `KOCOM_LIGHT_SIZE` (optional)
+name은 방이름, number는 조명 개수. 본인의 집 수량만큼 추가 가능.
 
-(2019.11.18 추가수정) 연결 시작시에도 패킷충돌 감지, fan command오류수정
+```yaml
+KOCOM_LIGHT_SIZE:
+  - name: livingroom
+    number: 3
+  - name: bedroom
+    number: 2
+```
+### Option `KOCOM_PLUG_SIZE` (optional)
+name은 방이름, number는 플러그 개수. 본인의 집 수량만큼 추가 가능.
 
-(2019.11.18 수정) polling 도중 command 발생시 간헐적 충돌 해결
+```yaml
+KOCOM_PLUG_SIZE:
+  - name: livingroom
+    number: 3
+  - name: bedroom
+    number: 2
+```
+### Option `KOCOM_ROOM` (optional)
+방이름을 배열로 개수만큼 추가
 
-(2019.11.17 수정) RS485연결 또는 mqtt연결이 끊어졌을 때 예외처리/자동복구, RS485 read/write 패킷충돌 방지
+```yaml
+KOCOM_ROOM:
+  - livingroom
+  - bedroom
+  - room1
+```
+방 패킷에 따른 방이름 패킷 이름은 00부터 01, 02로 시작하는 순서와 방이름이 매칭되어야 함
+월패드에서 장치를 작동하며 방이름(livingroom, bedroom, room1  등)을 확인하여 본인의 상황에 맞게 바꾸세요
 
-(2019.11.15 수정) 하나의 파이썬코드 kocom.py로 serial 및 socket 둘 다 지원하도록 바꿨습니다. kocom.conf에서 serial로 할지 socket으로 할지 등등 설정하시면 됩니다. 
+### Option `KOCOM_ROOM_THERMOSTAT` (optional)
+```yaml
+KOCOM_ROOM_THERMOSTAT:
+  - livingroom
+  - bedroom
+  - room1
+```
+조명/콘센트와 난방의 방패킷이 달라서 두개로 나뉘어있습니다.
+방 패킷에 따른 방이름 패킷 이름은 00부터 01, 02로 시작하는 순서와 방이름이 매칭되어야 함
+월패드에서 장치를 작동하며 방이름(livingroom, bedroom, room1  등)을 확인하여 본인의 상황에 맞게 바꾸세요
 
-(2019.11.14 수정) Rese님이 지적하신 mqtt log 오류 수정
+## Support
 
-(2019.11.13오후 수정) Rese님 요청으로, socket용 draft version도 올립니다. (압축파일 내 kocom.py를 대체하세요) serial 연결부분을 socket 연결로 바꾸고, read()-->recv(1), write()-->send()로만 딱 변경했습니다. ser2net python파일로 1분간 작동유무만 테스트하여, 장기적인 안정성은 테스트되지 않았습니다. python 소스코드 내에 소켓 연결할 ip/port 를 기입하도록 되어있으니 수정하셔서 사용하시면 됩니다.
+Got questions?
 
-(2019.11.13수정) checksum 을 계산하다보니 아무래도 header는 aa55까지인 것 같습니다. 다시 수정하였습니다. python 소스코드도 수정되었습니다
+You have several options to get them answered:
+
+- The [Korea Wallpad Controller][github].
+- The [Home Assistant 네이버카페][forum].
+
+버그신고는 카페나 깃허브로 해주세요 [open an issue on our GitHub][issue].
+
+
+[forum]: https://cafe.naver.com/koreassistant
+[github]: https://github.com/HAKorea/addons
+[issue]: https://github.com/zooil/wallpadRS485/issues
+[aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
+[amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
+[armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg
+[armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
+[i386-shield]: https://img.shields.io/badge/i386-yes-green.svg

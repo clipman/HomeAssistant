@@ -21,6 +21,8 @@ import paho.mqtt.client as mqtt
 import logging
 import configparser
 
+# Version
+SW_VERSION = 'Kocom RS485 Compilation 1.0.0'
 
 # define -------------------------------
 INIT_TEMP = 23

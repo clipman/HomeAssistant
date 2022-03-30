@@ -250,6 +250,7 @@ def chksum(data_h):
 # hex parsing --------------------------------
 #home
 #aa55 7a9 d 02 0200 ffff ff ff31ffffff0101a4 55 0d0d
+#aa55 7a9 d 02 0200 ffff ff ff31ffffff0101a4 55 0d0d(eb)
 #aa55 7a9 e 02 0200 ffff ff ff31ffffff010129 f6 0d0d
 #gate
 #aa55 7a9 d 02 0800 ffff ff ffffffffff010187 84 0d0d

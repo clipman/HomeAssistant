@@ -131,7 +131,7 @@ class RS485Wrapper:
             logging.error('[RS485] Socket connection failure : {} | server {}, port {}'.format(e, SOCKET_SERVER, SOCKET_PORT))
             return False
         logging.info('[RS485] Socket connected | server {}, port {}'.format(SOCKET_SERVER, SOCKET_PORT))
-        sock.settimeout(polling_interval+15)   # set read timeout a little bit more than polling interval
+        sock.settimeout(None)   #sock.settimeout(polling_interval+15)   # set read timeout a little bit more than polling interval
         return sock
 
     def read(self):

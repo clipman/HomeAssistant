@@ -2,7 +2,7 @@ FROM python:3
 ENV LANG C.UTF-8
 
 # Copy data for add-on
-COPY run.sh kocom.conf kocom.py /
+COPY run.sh kocom_call.conf kocom_call.py /
 
 # Install requirements for add-on
 #RUN apt-get update && apt-get -y install jq

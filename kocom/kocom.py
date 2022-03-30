@@ -545,6 +545,10 @@ def packet_processor(p):
             state = light_parse(p['value'])
             logtxt='[MQTT publish|light] data[{}]'.format(state)
             mqttc.publish("kocom/livingroom/light/state", json.dumps(state))
+
+            state = {'state': 'off'}
+            logtxt='[MQTT publish|query] data[{}]'.format(state)
+            mqttc.publish("kocom/myhome/query/state", json.dumps(state))
         elif p['dest'] == 'fan' and p['cmd']=='state':
         #elif p['src'] == 'fan' and p['cmd']=='state':
             state = fan_parse(p['value'])
@@ -555,10 +559,6 @@ def packet_processor(p):
             state = {'state': p['cmd']}
             logtxt='[MQTT publish|gas] data[{}]'.format(state)
             mqttc.publish("kocom/livingroom/gas/state", json.dumps(state))
-        else:
-            state = {'state': 'off'}
-            logtxt='[MQTT publish|query] data[{}]'.format(state)
-            mqttc.publish("kocom/myhome/query/state", json.dumps(state))
     elif p['type']=='send' and p['dest']=='elevator':
         floor = int(p['value'][2:4],16)
         rs485_floor = int(config.get('Elevator','rs485_floor', fallback=0))

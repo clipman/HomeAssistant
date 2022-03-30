@@ -10,8 +10,7 @@ ENV LANG C.UTF-8
 # Copy data for add-on
 COPY run.sh kocom.conf kocom.py /
 
-#WORKDIR /share
-WORKDIR /config/custom_components
+WORKDIR /share
 
 RUN chmod a+x /run.sh
 

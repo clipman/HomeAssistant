@@ -1,8 +1,8 @@
 {
-  "name": "Kocom Wallpad with RS485",
+  "name": "Kocom Call with RS485",
   "version": "2022.03.30",
-  "slug": "kocom",
-  "description": "Kocom Wallpad for Home Assistant",
+  "slug": "kocom_call",
+  "description": "Kocom Call for Home Assistant",
   "arch": [
     "armhf",
     "armv7",

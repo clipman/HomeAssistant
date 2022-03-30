@@ -34,9 +34,9 @@ trailer_h = '0d0d'
 packet_size = 21  # total 21bytes
 chksum_position = 18  # 18th byte
 
-type_t_dic = {'30b':'send', '30d':'ack', '7a9':'call'}
+type_t_dic = {'30b':'send', '30d':'ack'}
 seq_t_dic = {'c':1, 'd':2, 'e':3, 'f':4}
-device_t_dic = {'01':'wallpad', '02':'home', '08':'gate', '0e':'light', '2c':'gas', '36':'thermo', '44':'elevator', '48':'fan'}
+device_t_dic = {'01':'wallpad', '0e':'light', '2c':'gas', '36':'thermo', '44':'elevator', '48':'fan'}
 cmd_t_dic = {'00':'state', '01':'on', '02':'off', '3a':'query'}
 room_t_dic = {'00':'livingroom', '01':'room1', '02':'room2', '03':'room3'}
 
@@ -248,31 +248,12 @@ def chksum(data_h):
 
 
 # hex parsing --------------------------------
-#home
-#aa55 7a9 d 02 0200 ffff ff ff31ffffff0101a4 55 0d0d
-#aa55 7a9 e 02 0200 ffff ff ff31ffffff010129 f6 0d0d
-#gate
-#aa55 7a9 d 02 0800 ffff ff ffffffffff010187 84 0d0d
-#aa55 7a9 e 02 0800 ffff ff ffffffffff01010a 27 0d0d
-#elevator
-#aa55 30b c 00 4400 0100 01 0300000000000000 35 0d0d
-#fan
-#aa55 30b c 00 4800 0100 00 1000800000000000 c5 0d0d 
-#aa55 30d c 00 0100 4800 00 1000800000000000 e5 0d0d 
-#light
-#aa55 30b c 00 0100 0e00 00 0000000000000000 fb 0d0d 
-#aa55 30d c 00 0e00 0100 00 0000000000000000 1b 0d0d
-#thermo
-#aa55 30b c 00 0100 3600 00 0100050018000000 41 0d0d 
-#aa55 30d c 00 3600 0100 00 0100050018000000 61 0d0d
-#aa55 30b c 00 0100 3603 00 0100050018000000 44 0d0d 
-#aa55 30d c 00 3603 0100 00 0100050018000000 64 0d0d
+
 def parse(hex_data):
     header_h = hex_data[:4]    # aa55
-    type_h = hex_data[4:7]    # send/ack : 30b(send) 30d(ack) 7a9(call)
+    type_h = hex_data[4:7]    # send/ack : 30b(send) 30d(ack)
     seq_h = hex_data[7:8]    # sequence : c(1st) d(2nd)
-    monitor_h = hex_data[8:10] # sequence : 00(wallpad) 02(Kitchen)
-    dest_h = hex_data[10:14] # dest addr : 0100(wallpad0) 0e00(light0) 3600(thermo0) 3601(thermo1) 3602(thermo2) 3603(thermo3) 4800(fan) 4400(elevator) 0200(home) 0800(gate)
+    dest_h = hex_data[10:14] # dest addr : 0100(wallpad0) 0e00(light0) 3600(thermo0) 3601(thermo1) 3602(thermo2) 3603(thermo3)
     src_h = hex_data[14:18]   # source addr  
     cmd_h = hex_data[18:20]   # command : 3e(query)
     value_h = hex_data[20:36]  # value
@@ -283,7 +264,7 @@ def parse(hex_data):
     payload_h = hex_data[18:36]
     cmd = cmd_t_dic.get(cmd_h)
 
-    ret = { 'header_h':header_h, 'type_h':type_h, 'seq_h':seq_h, 'monitor_h':monitor_h, 'dest_h':dest_h, 'src_h':src_h, 'cmd_h':cmd_h, 
+    ret = { 'header_h':header_h, 'type_h':type_h, 'seq_h':seq_h, 'dest_h':dest_h, 'src_h':src_h, 'cmd_h':cmd_h, 
             'value_h':value_h, 'chksum_h':chksum_h, 'trailer_h':trailer_h, 'data_h':data_h, 'payload_h':payload_h,
             'type':type_t_dic.get(type_h),
             'seq':seq_t_dic.get(seq_h), 
@@ -318,22 +299,6 @@ def fan_parse(value):
     state = 'off' if value[:2] == '10' else 'on' #state = 'off' if value[:2] == '00' else 'on'
     level = '0' if state == 'off' else level_dic.get(value[4:6])
     return { 'state': state, 'level': level}
-
-
-#home
-#aa55 7a9 d 02 0200 ffff ff ff31ffffff0101a4 55 0d0d
-#aa55 7a9 e 02 0200 ffff ff ff31ffffff010129 f6 0d0d
-#gate
-#aa55 7a9 d 02 0800 ffff ff ffffffffff010187 84 0d0d
-#aa55 7a9 e 02 0800 ffff ff ffffffffff01010a 27 0d0d
-def home_call_parse(value):
-    state = 'on' if value[3:5] == '31' else 'off'
-    return { 'state': state }
-
-
-def gate_call_parse(value):
-    state = 'on' if value[11:15] == '0101' else 'off'
-    return { 'state': state }
 
 
 # query device --------------------------
@@ -568,14 +533,7 @@ def packet_processor(p):
             state = {'state': 'off'}
         logtxt='[MQTT publish|elevator] data[{}]'.format(state)
         mqttc.publish("kocom/myhome/elevator/state", json.dumps(state))
-    elif p['type']=='call' and p['dest']=='home':
-        state = home_call_parse(p['value'])
-        logtxt='[MQTT publish|home_call] data[{}]'.format(state)
-        mqttc.publish("kocom/myhome/home_call/state", json.dumps(state))
-    elif p['type']=='call' and p['dest']=='gate':
-        state = gate_call_parse(p['value'])
-        logtxt='[MQTT publish|gate_call] data[{}]'.format(state)
-        mqttc.publish("kocom/myhome/gate_call/state", json.dumps(state))
+        # aa5530bc0044000100010300000000000000350d0d
 
     if logtxt != "" and config.get('Log', 'show_mqtt_publish') == 'True':
         logging.info(logtxt)

@@ -588,7 +588,7 @@ def poll_state():
     poll_timer.cancel()
 
     dev_list = [x.strip() for x in config.get('Device','enabled').split(',')]
-    no_polling_list = ['wallpad', 'elevator', 'home_call', 'gate_call']
+    no_polling_list = ['wallpad', 'elevator']
 
     #thread health check
     for thread_instance in thread_list:

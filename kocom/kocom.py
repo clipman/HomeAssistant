@@ -514,7 +514,7 @@ def mqtt_on_message(mqttc, obj, msg):
     # kocom/myhome/query/command
     elif 'query' in topic_d:
         if command == 'on':
-            poll_state(True)
+            poll_state(enforce=True)
 
 
 #===== parse hex packet --> publish MQTT =====

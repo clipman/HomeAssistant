@@ -321,9 +321,10 @@ def fan_parse(value):
 
 # query device --------------------------
 
-def query(device_h, publish=False):
+def query(device_h, publish=False, enforce=False):
     # find from the cache first
     for c in cache_data:
+        if enforce: break
         if time.time() - c['time'] > polling_interval:  # if there's no data within polling interval, then exit cache search
             break
         if c['type']=='ack' and c['src']=='wallpad' and c['dest_h']==device_h and c['cmd']!='query':
@@ -513,7 +514,7 @@ def mqtt_on_message(mqttc, obj, msg):
     # kocom/myhome/query/command
     elif 'query' in topic_d:
         if command == 'on':
-            poll_state()
+            poll_state(True)
 
 
 #===== parse hex packet --> publish MQTT =====
@@ -568,7 +569,7 @@ def packet_processor(p):
 
 #===== thread functions ===== 
 
-def poll_state():
+def poll_state(enforce=False):
     global poll_timer
     poll_timer.cancel()
 
@@ -593,7 +594,7 @@ def poll_state():
             sub_id = '00'
 
         if dev_id != None and sub_id != None:
-            if query(dev_id + sub_id, publish=True)['flag'] == False:
+            if query(dev_id + sub_id, publish=True, enforce=enforce)['flag'] == False:
                 break
             time.sleep(1)
 

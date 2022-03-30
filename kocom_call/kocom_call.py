@@ -12,7 +12,6 @@ import paho.mqtt.client as mqtt
 import logging
 import configparser
 
-
 # define -------------------------------
 CONFIG_FILE = 'kocom_call.conf'
 BUF_SIZE = 100
@@ -80,7 +79,6 @@ def mqtt_on_connect(mqttc, userdata, flags, rc):
 
 def mqtt_on_disconnect(mqttc, userdata,rc=0):
     logging.error("[MQTT] Disconnected - "+str(rc))
-
 
 # serial/socket communication class & functions--------------------
 
@@ -209,63 +207,20 @@ def send_packet(send_data):
     send_lock.release()
     return ret
 
-
-def send(dest, src, cmd, value, log=None, check_ack=True):
-    send_lock.acquire()
-    ack_data.clear()
-    ret = False
-    for seq_h in seq_t_dic.keys(): # if there's no ACK received, then repeat sending with next sequence code
-        payload = type_h_dic['send'] + seq_h + '00' + dest + src + cmd + value
-        send_data = header_h + payload + chksum(payload) + trailer_h 
-        try:
-            if rs485.write(bytearray.fromhex(send_data)) == False:
-                raise Exception('Not ready')
-        except Exception as ex:
-            logging.error("[RS485] Write error.[{}]".format(ex) )
-            break
-        if log != None:
-            logging.info('[SEND|{}] {}'.format(log, send_data))
-        if check_ack == False:
-            time.sleep(1)
-            ret = send_data
-            break
-
-        # wait and checking for ACK
-        ack_data.append(type_h_dic['ack'] + seq_h + '00' +  src + dest + cmd + value)
-        try:
-            ack_q.get(True, 1.3+0.2*random.random()) # random wait between 1.3~1.5 seconds for ACK
-            if config.get('Log', 'show_recv_hex') == 'True':
-                logging.info ('[ACK] OK')
-            ret = send_data
-            break
-        except queue.Empty:
-            pass
-
-    if ret == False:
-        logging.info('[RS485] send failed. closing RS485. it will try to reconnect to RS485 shortly.')
-        rs485.close()
-    ack_data.clear()
-    send_lock.release()
-    return ret
-
-
-def chksum(data_h):
-    sum_buf = sum(bytearray.fromhex(data_h))
-    return '{0:02x}'.format((sum_buf)%256)  # return chksum hex value in text format
-
-
 # hex parsing --------------------------------
-#home
+#home call
 #aa55 7a9 d 02 0200 ffff ff ff31ffffff0101a4 55 0d0d
 #aa55 7a9 e 02 0200 ffff ff ff31ffffff010129 f6 0d0d
-#gate
+#gate call
 #aa55 7a9 d 02 0800 ffff ff ffffffffff010187 84 0d0d
 #aa55 7a9 e 02 0800 ffff ff ffffffffff01010a 27 0d0d
-#home_open
-#aa55 7b9 c 02 0200 ffff ff ff31ffffff020034 ba 0d0d
-#aa55 7a9 d 02 0200 ffff ff ff31ffffff0200e1 27 0d0d
-#gate_open
-
+#home_open command
+#aa55 79b c 02 0200 31ff ff ff61ffffff030008 d3 0d0d(home phone)
+#aa55 79b c 02 0200 31ff ff ff61ffffff240097 a2 0d0d(home open)
+#aa55 79b c 02 0200 31ff ff ff61ffffff040091 44 0d0d(home exit)
+#gate_open command
+#aa55 79b c 08 0200 ffff ff ff61ffffff030026 95 0d0d(gate phone)
+#aa55 79b c 08 0200 ffff ff ff61ffffff2400b9 e4 0d0d(gate oopen)
 def parse(hex_data):
     header_h = hex_data[:4]    # aa55
     type_h = hex_data[4:7]    # send/ack : 30b(send) 30d(ack) 7a9(call)
@@ -296,55 +251,13 @@ def parse(hex_data):
             'flag':None}
     return ret
 
-#aa55 7a9 d 02 0200 ffff ff ff31ffffff0101a4 55 0d0d 
-#aa55 7a9 e 02 0200 ffff ff ff31ffffff010129 f6 0d0d
 def home_call_parse(value):
     state = 'on' if value[2:4] == '31' and value[10:14] == '0101' else 'off'
     return { 'state': state }
 
-
 def gate_call_parse(value):
     state = 'on' if value[10:14] == '0101' else 'off'
     return { 'state': state }
-
-
-# query device --------------------------
-
-def query(device_h, publish=False):
-    # find from the cache first
-    for c in cache_data:
-        if time.time() - c['time'] > polling_interval:  # if there's no data within polling interval, then exit cache search
-            break
-        if c['type']=='ack' and c['src']=='wallpad' and c['dest_h']==device_h and c['cmd']!='query':
-            if (config.get('Log', 'show_query_hex')=='True'):
-                logging.info('[cache|{}{}] query cache {}'.format(c['dest'], c['dest_subid'], c['data_h']))
-            return c  # return the value in the cache
-
-    # if there's no cache data within polling inteval, then send query packet
-    if (config.get('Log', 'show_query_hex')=='True'):
-        log = 'query ' + device_t_dic.get(device_h[:2]) + str(int(device_h[2:4],16))
-    else:
-        log = None
-    return send_wait_response(dest=device_h, cmd=cmd_h_dic['query'], log=log, publish=publish)
-
-
-def send_wait_response(dest, src=device_h_dic['wallpad']+'00', cmd=cmd_h_dic['state'], value='0'*16, log=None, check_ack=True, publish=True):
-    #logging.debug('waiting for send_wait_response :'+dest)
-    wait_target.put(dest)
-    #logging.debug('entered send_wait_response :'+dest)
-    ret =  { 'value':'0'*16, 'flag':False }
-
-    if send(dest, src, cmd, value, log, check_ack) != False:
-        try:
-            ret = wait_q.get(True, 2)
-            if publish==True:
-                publish_status(ret)
-        except queue.Empty:
-            pass
-    wait_target.get()
-    #logging.debug('exiting send_wait_response :'+dest)
-    return ret
-
 
 #===== parse MQTT --> send hex packet =====
 
@@ -373,7 +286,6 @@ def mqtt_on_message(mqttc, obj, msg):
             time.sleep(1)
             send_packet('aa5579bc080200ffffffff61ffffff2400b9e40d0d')
 
-
 #===== parse hex packet --> publish MQTT =====
 
 def publish_status(p):
@@ -392,7 +304,6 @@ def packet_processor(p):
 
     if logtxt != "" and config.get('Log', 'show_mqtt_publish') == 'True':
         logging.info(logtxt)
-
 
 #===== thread functions ===== 
 
@@ -440,7 +351,6 @@ def read_serial():
             del cache_data[:]
             rs485.reconnect()
 
-
 def listen_hexdata():
     while True:
         d = msg_q.get()
@@ -470,7 +380,6 @@ def listen_hexdata():
                 continue
         publish_status(p_ret)
 
-
 #========== Main ==========
 
 if __name__ == "__main__":
@@ -479,8 +388,15 @@ if __name__ == "__main__":
     config = configparser.ConfigParser()
     config.read(CONFIG_FILE)
 
-    import socket
-    rs485 = RS485Wrapper(socket_server = config.get('RS485', 'socket_server'), socket_port = int(config.get('RS485', 'socket_port')))
+    if config.get('RS485', 'type') == 'serial':
+        import serial
+        rs485 = RS485Wrapper(serial_port = config.get('RS485', 'serial_port', fallback=None))
+    elif config.get('RS485', 'type') == 'socket':
+        import socket
+        rs485 = RS485Wrapper(socket_server = config.get('RS485', 'socket_server'), socket_port = int(config.get('RS485', 'socket_port')))
+    else:
+        logging.error('[CONFIG] invalid type value in [RS485]: only "serial" or "socket" is allowed. exit')
+        exit(1)
     if rs485.connect() == False:
         logging.error('[RS485] connection error. exit')
         exit(1)

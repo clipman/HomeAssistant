@@ -14,7 +14,7 @@ import configparser
 
 
 # define -------------------------------
-CONFIG_FILE = 'kocom.conf'
+CONFIG_FILE = 'kocom_call.conf'
 BUF_SIZE = 100
 
 read_write_gap = 0.03  # minimal time interval between last read to write
@@ -432,9 +432,22 @@ def read_serial():
                 logging.info('[comm] not parsed '+not_parsed_buf)
                 not_parsed_buf = ''
 
-            # checksum 체크 안함
-            msg_q.put(buf)
-            buf=''
+            if len(buf) == packet_size*2:
+                if buf[-len(trailer_h):] == trailer_h:
+                    if msg_q.full():
+                        logging.error('msg_q is full. probably error occured while running listen_hexdata thread. please manually restart the program.')
+                    msg_q.put(buf)  # valid packet
+                    buf=''
+                else:
+                    logging.info("[comm] invalid packet {} expected".format(buf))
+                    frame_start = buf.find(header_h, len(header_h))
+                    # if there's header packet in the middle of invalid packet, re-parse from that posistion
+                    if frame_start < 0:
+                        not_parsed_buf += buf
+                        buf=''
+                    else:
+                        not_parsed_buf += buf[:frame_start]
+                        buf = buf[frame_start:]
         except Exception as ex:
             logging.error("*** Read error.[{}]".format(ex) )
             del cache_data[:]
@@ -480,7 +493,7 @@ if __name__ == "__main__":
     config.read(CONFIG_FILE)
 
     import socket
-    rs485 = RS485Wrapper(socket_server = '192.168.219.192', socket_port = 8899)
+    rs485 = RS485Wrapper(socket_server = config.get('RS485', 'socket_server'), socket_port = int(config.get('RS485', 'socket_port')))
     if rs485.connect() == False:
         logging.error('[RS485] connection error. exit')
         exit(1)

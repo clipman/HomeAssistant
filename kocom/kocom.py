@@ -513,11 +513,7 @@ def mqtt_on_message(mqttc, obj, msg):
     # kocom/myhome/query/command
     elif 'query' in topic_d:
         if command == 'on':
-            send_packet('aa5530bc000e0001003a0000000000000000350d0d')
-            time.sleep(0.5)
-            send_packet('aa5530bc00480001003a00000000000000006f0d0d')
-            time.sleep(0.5)
-            send_packet('aa5530bc00360001003a00000000000000005d0d0d')
+            poll_state()
         else:
             send_packet('aa5530bc000e0001003a0000000000000000350d0d')
             time.sleep(0.5)

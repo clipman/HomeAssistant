@@ -3,7 +3,8 @@
 python3 -m pip install pyserial
 python3 -m pip install paho-mqtt
 
-SHARE_DIR=/share/kocom
+#SHARE_DIR=/share/kocom
+SHARE_DIR=/config/custom_components/kocom
 
 if [ ! -f $SHARE_DIR/kocom.py ]; then
 	mkdir $SHARE_DIR

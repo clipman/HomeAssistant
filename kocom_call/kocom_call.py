@@ -296,14 +296,15 @@ def parse(hex_data):
             'flag':None}
     return ret
 
-
+#aa55 7a9 d 02 0200 ffff ff ff31ffffff0101a4 55 0d0d 
+#aa55 7a9 e 02 0200 ffff ff ff31ffffff010129 f6 0d0d
 def home_call_parse(value):
-    state = 'on' if value[3:5] == '31' and value[11:15] == '0101' else 'off'
+    state = 'on' if value[2:4] == '31' and value[10:14] == '0101' else 'off'
     return { 'state': state }
 
 
 def gate_call_parse(value):
-    state = 'on' if value[11:15] == '0101' else 'off'
+    state = 'on' if value[10:14] == '0101' else 'off'
     return { 'state': state }
 
 

@@ -555,7 +555,7 @@ def packet_processor(p):
             state = {'state': p['cmd']}
             logtxt='[MQTT publish|gas] data[{}]'.format(state)
             mqttc.publish("kocom/livingroom/gas/state", json.dumps(state))
-        else
+        else:
             state = {'state': 'off'}
             logtxt='[MQTT publish|query] data[{}]'.format(state)
             mqttc.publish("kocom/myhome/query/state", json.dumps(state))

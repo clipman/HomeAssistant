@@ -4,6 +4,7 @@
 
 ## About
 Kocom Call with RS485
+코콤 주방 모니터와 연결된 rs485통신을 통하여 공동현관문과 현관문의 호출을 제어합니다.
 
 ## Installation
 

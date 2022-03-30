@@ -247,6 +247,24 @@ def chksum(data_h):
     return '{0:02x}'.format((sum_buf)%256)  # return chksum hex value in text format
 
 
+def send_packet(send_data):
+    send_lock.acquire()
+    ret = False
+    try:
+        if rs485.write(bytearray.fromhex(send_data)) == False:
+            raise Exception('Not ready')
+        ret = send_data
+    except Exception as ex:
+        logging.error("[RS485] Write error.[{}]".format(ex) )
+    logging.info('[SEND] {}'.format(send_data))
+
+    if ret == False:
+        logging.info('[RS485] send failed. closing RS485. it will try to reconnect to RS485 shortly.')
+        rs485.close()
+    send_lock.release()
+    return ret
+
+
 # hex parsing --------------------------------
 
 def parse(hex_data):
@@ -492,6 +510,21 @@ def mqtt_on_message(mqttc, obj, msg):
         value = onoff + speed + '0'*10
         send_wait_response(dest=dev_id, value=value, log='fan')
 
+    # kocom/myhome/query/command
+    elif 'query' in topic_d:
+        if command == 'on':
+            send_packet('aa5530bc000e0001003a0000000000000000350d0d')
+            time.sleep(0.5)
+            send_packet('aa5530bc00480001003a00000000000000006f0d0d')
+            time.sleep(0.5)
+            send_packet('aa5530bc00360001003a00000000000000005d0d0d')
+        else:
+            send_packet('aa5530bc000e0001003a0000000000000000350d0d')
+            time.sleep(0.5)
+            send_packet('aa5530bc00480001003a00000000000000006f0d0d')
+            time.sleep(0.5)
+            send_packet('aa5530bc00360001003a00000000000000005d0d0d')
+
 
 #===== parse hex packet --> publish MQTT =====
 
@@ -522,6 +555,10 @@ def packet_processor(p):
             state = {'state': p['cmd']}
             logtxt='[MQTT publish|gas] data[{}]'.format(state)
             mqttc.publish("kocom/livingroom/gas/state", json.dumps(state))
+        else
+            state = {'state': 'off'}
+            logtxt='[MQTT publish|query] data[{}]'.format(state)
+            mqttc.publish("kocom/myhome/query/state", json.dumps(state))
     elif p['type']=='send' and p['dest']=='elevator':
         floor = int(p['value'][2:4],16)
         rs485_floor = int(config.get('Elevator','rs485_floor', fallback=0))

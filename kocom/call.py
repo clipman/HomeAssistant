@@ -201,7 +201,6 @@ def send_packet(send_data):
         ret = send_data
     except Exception as ex:
         logging.error("[RS485] Write error.[{}]".format(ex) )
-        break
     logging.info('[SEND|{}] {}'.format(log, send_data))
 
     if ret == False:

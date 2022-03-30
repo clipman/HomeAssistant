@@ -1,8 +1,6 @@
-FROM python:3
+FROM python:3.10
 
 ENV LANG C.UTF-8
-
-RUN pip install --upgrade pip
 
 # Install requirements for add-on
 RUN apt-get update && apt-get -y install jq

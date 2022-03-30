@@ -261,19 +261,11 @@ def chksum(data_h):
 #gate
 #aa55 7a9 d 02 0800 ffff ff ffffffffff010187 84 0d0d
 #aa55 7a9 e 02 0800 ffff ff ffffffffff01010a 27 0d0d
-#elevator
-#aa55 30b c 00 4400 0100 01 0300000000000000 35 0d0d
-#fan
-#aa55 30b c 00 4800 0100 00 1000800000000000 c5 0d0d 
-#aa55 30d c 00 0100 4800 00 1000800000000000 e5 0d0d 
-#light
-#aa55 30b c 00 0100 0e00 00 0000000000000000 fb 0d0d 
-#aa55 30d c 00 0e00 0100 00 0000000000000000 1b 0d0d
-#thermo
-#aa55 30b c 00 0100 3600 00 0100050018000000 41 0d0d 
-#aa55 30d c 00 3600 0100 00 0100050018000000 61 0d0d
-#aa55 30b c 00 0100 3603 00 0100050018000000 44 0d0d 
-#aa55 30d c 00 3603 0100 00 0100050018000000 64 0d0d
+#home_open
+#aa55 7b9 c 02 0200 ffff ff ff31ffffff020034 ba 0d0d
+#aa55 7a9 d 02 0200 ffff ff ff31ffffff0200e1 27 0d0d
+#gate_open
+
 def parse(hex_data):
     header_h = hex_data[:4]    # aa55
     type_h = hex_data[4:7]    # send/ack : 30b(send) 30d(ack) 7a9(call)
@@ -305,14 +297,8 @@ def parse(hex_data):
     return ret
 
 
-#home
-#aa55 7a9 d 02 0200 ffff ff ff31ffffff0101a4 55 0d0d
-#aa55 7a9 e 02 0200 ffff ff ff31ffffff010129 f6 0d0d
-#gate
-#aa55 7a9 d 02 0800 ffff ff ffffffffff010187 84 0d0d
-#aa55 7a9 e 02 0800 ffff ff ffffffffff01010a 27 0d0d
 def home_call_parse(value):
-    state = 'on' if value[3:5] == '31' else 'off'
+    state = 'on' if value[3:5] == '31' and value[11:15] == '0101' else 'off'
     return { 'state': state }
 
 

@@ -5,9 +5,8 @@ ENV LANG C.UTF-8
 COPY run.sh kocom.conf kocom.py /
 
 # Install requirements for add-on
-#RUN apt-get update && apt-get -y install jq
-#RUN python3 -m pip install pyserial
-#RUN python3 -m pip install paho-mqtt
+RUN python3 -m pip install pyserial
+RUN python3 -m pip install paho-mqtt
 
 WORKDIR /share
 RUN chmod a+x /run.sh

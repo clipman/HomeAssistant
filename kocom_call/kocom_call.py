@@ -220,7 +220,7 @@ def send_packet(send_data):
 #aa55 79b c 02 0200 31ff ff ff61ffffff040091 44 0d0d(home exit)
 #gate_open command
 #aa55 79b c 08 0200 ffff ff ff61ffffff030026 95 0d0d(gate phone)
-#aa55 79b c 08 0200 ffff ff ff61ffffff2400b9 e4 0d0d(gate oopen)
+#aa55 79b c 08 0200 ffff ff ff61ffffff2400b9 e4 0d0d(gate open)
 def parse(hex_data):
     header_h = hex_data[:4]    # aa55
     type_h = hex_data[4:7]    # send/ack : 30b(send) 30d(ack) 7a9(call)

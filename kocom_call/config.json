@@ -1,6 +1,6 @@
 {
   "name": "Kocom Call with RS485",
-  "version": "2022.03.31",
+  "version": "2022.04.01",
   "slug": "kocom_call",
   "description": "Kocom Call for Home Assistant",
   "arch": [
@@ -18,11 +18,9 @@
     "share:rw"
   ],
   "options": {
-    "share/kocom/kocom_call.conf 설정파일": true,
-    "share/kocom/kocom_call.py 실행파일": true
+    "share/kocom/kocom_call.conf 설정파일": true
   },
   "schema": {
-    "share/kocom/kocom_call.conf 설정파일": "bool",
-    "share/kocom/kocom_call.py 실행파일": "bool"
+    "share/kocom/kocom_call.conf 설정파일": "bool"
   }
 }

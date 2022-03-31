@@ -1,6 +1,6 @@
 {
   "name": "Kocom Call with RS485",
-  "version": "2022.04.01",
+  "version": "2022.03.31",
   "slug": "kocom_call",
   "description": "Kocom Call for Home Assistant",
   "arch": [

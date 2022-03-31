@@ -7,7 +7,7 @@ if [ ! -f $SHARE_DIR/kocom.conf ]; then
 	mv /kocom.conf $SHARE_DIR
 fi
 
-echo "[Info] Run Kocom Wallpad with RS485!"
+echo "[Info] Run Kocom Wallpad with RS485..."
 
 cd $SHARE_DIR
 python3 /kocom.py

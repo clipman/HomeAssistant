@@ -9,7 +9,6 @@ fi
 
 echo "[Info] Run Kocom Wallpad with RS485..."
 
-cd $SHARE_DIR
 python3 /kocom.py
 
 # for dev

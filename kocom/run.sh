@@ -10,9 +10,6 @@ fi
 
 echo "[Info] Run Kocom Wallpad with RS485!"
 
-python3 -m pip install pyserial
-python3 -m pip install paho-mqtt
-
 cd $SHARE_DIR
 python3 $SHARE_DIR/kocom.py
 

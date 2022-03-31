@@ -9,6 +9,7 @@ fi
 
 echo "[Info] Run Kocom Call with RS485..."
 
+cd $SHARE_DIR
 python3 /kocom_call.py
 
 # for dev

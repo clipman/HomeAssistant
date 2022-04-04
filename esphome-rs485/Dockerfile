@@ -4,7 +4,7 @@ FROM ${BUILD_FROM}
 # Copy root filesystem
 COPY rootfs /
 
-RUN pip3 install --no-cache-dir https://github.com/esphome/esphome/archive/refs/tags/2022.1.4.zip
+RUN pip3 install --no-cache-dir https://github.com/esphome/home-assistant-addon/archive/refs/tags/v1.18.0.zip
 
 # Labels
 LABEL \

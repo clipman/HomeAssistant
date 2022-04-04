@@ -1,4 +1,4 @@
-ARG BUILD_FROM=esphome/esphome-hassio-base-amd64:5.2.3
+ARG BUILD_FROM=esphome/esphome-hassio-base-amd64:3.0.0
 FROM ${BUILD_FROM}
 
 # Copy root filesystem

@@ -40,5 +40,5 @@
   "stage": "experimental",
   "uart": true,
   "url": "https://next.esphome.io/",
-  "version": "2022.1.4"
+  "version": "v1.18.0"
 }

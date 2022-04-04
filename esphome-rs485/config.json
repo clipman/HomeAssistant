@@ -15,7 +15,7 @@
     "ssl:ro",
     "config:rw"
   ],
-  "name": "ESPHome",
+  "name": "ESPHome 2022.1.4",
   "panel_icon": "mdi:chip",
   "ports": {
     "6052/tcp": null

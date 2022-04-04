@@ -1,34 +1,31 @@
 {
-  "advanced": true,
   "arch": [
     "amd64",
     "armv7",
     "aarch64"
   ],
   "auth_api": true,
-  "backup_exclude": [
-    "*/*/"
-  ],
-  "description": "RS485 version of ESPHome add-on",
+  "description": "ESPHome Hass.io add-on for intelligently managing all your ESP8266/ESP32 devices.",
   "hassio_api": true,
   "host_network": true,
+  "image": "esphome/esphome-hassio-{arch}",
   "ingress": true,
   "ingress_port": 0,
   "map": [
     "ssl:ro",
     "config:rw"
   ],
-  "name": "ESPHome (RS485)",
+  "name": "ESPHome",
   "panel_icon": "mdi:chip",
   "ports": {
     "6052/tcp": null
   },
   "ports_description": {
-    "6052/tcp": "Web interface (not required for Home Assistant ingress)"
+    "6052/tcp": "Web interface (Not required for Home Assistant Ingress)"
   },
   "schema": {
     "certfile": "str?",
-    "esphome_fork": "str?",
+    "esphome_version": "str?",
     "keyfile": "str?",
     "leave_front_door_open": "bool?",
     "relative_url": "str?",
@@ -36,9 +33,8 @@
     "status_use_ping": "bool?",
     "streamer_mode": "bool?"
   },
-  "slug": "esphome-dev",
-  "stage": "experimental",
+  "slug": "esphome",
   "uart": true,
-  "url": "https://next.esphome.io/",
+  "url": "https://esphome.io/",
   "version": "2022.1.4"
 }

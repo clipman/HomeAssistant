@@ -5,7 +5,7 @@
     "aarch64"
   ],
   "auth_api": true,
-  "description": "ESPHome 1.20.4 add-on for intelligently managing all your ESP8266/ESP32 devices.",
+  "description": "ESPHome 2021.8.0 add-on for intelligently managing all your ESP8266/ESP32 devices.",
   "hassio_api": true,
   "host_network": true,
   "image": "esphome/esphome-hassio-{arch}",
@@ -15,7 +15,7 @@
     "ssl:ro",
     "config:rw"
   ],
-  "name": "ESPHome 1.20.4",
+  "name": "ESPHome 2021.8.0",
   "panel_icon": "mdi:chip",
   "ports": {
     "6052/tcp": null
@@ -36,5 +36,5 @@
   "slug": "esphome",
   "uart": true,
   "url": "https://esphome.io/",
-  "version": "1.20.4"
+  "version": "2021.8.0"
 }

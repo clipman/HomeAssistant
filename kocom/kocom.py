@@ -863,8 +863,7 @@ if __name__ == "__main__":
         sub = ''
         if len(dev) > 1:
             sub = dev[1]
-        publish_discovery(dev, sub)
-        time.sleep(0.5)
+        publish_discovery(dev[0], sub)
     publish_discovery('query')
 
     msg_q = queue.Queue(BUF_SIZE)

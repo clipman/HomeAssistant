@@ -225,7 +225,7 @@ def parse(hex_data):
     header_h = hex_data[:4]    # aa55
     type_h = hex_data[4:7]    # send/ack : 30b(send) 30d(ack) 7a9(call)
     seq_h = hex_data[7:8]    # sequence : c(1st) d(2nd)
-    monitor_h = hex_data[8:10] # sequence : 00(wallpad) 02(Kitchen)
+    monitor_h = hex_data[8:10] # sequence : 00(wallpad) 02(KitchenTV)
     dest_h = hex_data[10:14] # dest addr : 0100(wallpad0) 0e00(light0) 3600(thermo0) 3601(thermo1) 3602(thermo2) 3603(thermo3) 4800(fan) 4400(elevator) 0200(home) 0800(gate)
     src_h = hex_data[14:18]   # source addr  
     cmd_h = hex_data[18:20]   # command : 3e(query)

@@ -554,7 +554,7 @@ def packet_processor(p):
 
 #===== publish MQTT Devices Discovery =====
 
-def publish_discovery(dev, remove=False):
+def publish_discovery(dev):
     publish_list = []
     logtxt = ""
     #https://www.home-assistant.io/docs/mqtt/discovery/
@@ -584,13 +584,9 @@ def publish_discovery(dev, remove=False):
                 'sw': SW_VERSION
             }
         }
-        if remove:
-            publish_list.append({topic : ''})
-        else:
-            publish_list.append({topic : json.dumps(payload)})
 
-        logtxt='[MQTT Discovery|{}] data[{}]'.format(dev, publish_list)
-        mqttc.publish(publish_list)
+        logtxt='[MQTT Discovery|{}] data[{}]'.format(dev, topic)
+        mqttc.publish(topic, json.dumps(payload))
 
         if logtxt != "" and config.get('Log', 'show_mqtt_publish') == 'True':
             logging.info(logtxt)
@@ -612,7 +608,6 @@ def poll_state(enforce=False):
             thread_instance.start()
 
     for t in dev_list:
-        publish_discovery(t)
         dev = t.split('_')
         if dev[0] in no_polling_list:
             continue
@@ -756,5 +751,7 @@ if __name__ == "__main__":
     thread_list.append(threading.Thread(target=listen_hexdata, name='listen_hexdata'))
     for thread_instance in thread_list:
         thread_instance.start()
+
+    publish_discovery('fan')
 
     poll_timer.start()

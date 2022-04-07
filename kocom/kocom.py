@@ -878,4 +878,4 @@ if __name__ == "__main__":
         if len(dev) > 1:
             sub = dev[1]
         publish_discovery(dev, sub)
-    #publish_discovery('query')
+    publish_discovery('query')

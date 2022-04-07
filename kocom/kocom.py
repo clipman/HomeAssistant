@@ -592,13 +592,13 @@ def publish_discovery(dev):
         #ha_topic = 'homeassistant/switch/kocom_wallpad_query/config'
         topic = '{}/{}/{}_{}/config'.format('homeassistant', 'switch', 'kocom_wallpad', 'query')
         payload = {
-            'name': 'Kocom Wallpad Query'
-            'cmd_t': 'kocom/myhome/query/command'
-            'stat_t': 'kocom/myhome/query/state'
-            'val_tpl': '{{ value_json.state }}'
-            'pl_on': 'on'
-            'pl_off': 'off'
-            'qos': '0'
+            'name': 'Kocom Wallpad Query',
+            'cmd_t': 'kocom/myhome/query/command',
+            'stat_t': 'kocom/myhome/query/state',
+            'val_tpl': '{{ value_json.state }}',
+            'pl_on': 'on',
+            'pl_off': 'off',
+            'qos': '0',
             'uniq_id': '{}_{}_{}'.format('kocom', 'wallpad', dev),
             'device': {
                 'name': '코콤 스마트 월패드',

@@ -88,7 +88,7 @@ def mqtt_on_connect(mqttc, userdata, flags, rc):
     else:
         logging.error("[MQTT] Connection error - {}: {}".format(rc, mqtt.connack_string(rc)))
 
-def mqtt_on_disconnect(mqttc, userdata,rc=0):
+def mqtt_on_disconnect(mqttc, userdata, rc=0):
     logging.error("[MQTT] Disconnected - "+str(rc))
 
 
@@ -556,7 +556,7 @@ def packet_processor(p):
 
 #https://www.home-assistant.io/docs/mqtt/discovery/
 #<discovery_prefix>/<component>/<object_id>/config
-def publish_discovery(dev, sub):
+def publish_discovery(dev, sub=''):
     publish_list = []
     logtxt = ""
     if dev == 'query':

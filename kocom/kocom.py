@@ -857,13 +857,21 @@ if __name__ == "__main__":
         logging.error('[MQTT] conection error. exit')
         exit(1)
 
-    dev_list = [x.strip() for x in config.get('Device','enabled').split(',')]
-    for t in dev_list:
-        dev = t.split('_')
-        sub = ''
-        if len(dev) > 1:
-            sub = dev[1]
-        publish_discovery(dev, sub)
+#    dev_list = [x.strip() for x in config.get('Device','enabled').split(',')]
+#    for t in dev_list:
+#        dev = t.split('_')
+#        sub = ''
+#        if len(dev) > 1:
+#            sub = dev[1]
+#        publish_discovery(dev, sub)
+    publish_discovery('light')
+    publish_discovery('thermo', 'livingroom')
+    publish_discovery('thermo', 'room1')
+    publish_discovery('thermo', 'room2')
+    publish_discovery('thermo', 'room3')
+    publish_discovery('fan')
+    publish_discovery('gas')
+    publish_discovery('elevator')
     publish_discovery('query')
 
     msg_q = queue.Queue(BUF_SIZE)

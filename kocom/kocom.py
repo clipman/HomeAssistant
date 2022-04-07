@@ -580,7 +580,7 @@ def publish_discovery(dev, sub=''):
         mqttc.publish(topic, json.dumps(payload))
         if logtxt != "" and config.get('Log', 'show_mqtt_publish') == 'True':
             logging.info(logtxt)
-    if dev == 'fan':
+    elif dev == 'fan':
         topic = 'homeassistant/fan/kocom_wallpad_fan/config'
         payload = {
             'name': 'Kocom Wallpad Fan',
@@ -608,7 +608,7 @@ def publish_discovery(dev, sub=''):
         mqttc.publish(topic, json.dumps(payload))
         if logtxt != "" and config.get('Log', 'show_mqtt_publish') == 'True':
             logging.info(logtxt)
-    if dev == 'gas':
+    elif dev == 'gas':
         topic = 'homeassistant/gas/kocom_wallpad_gas/config'
         payload = {
             'name': 'Kocom Wallpad Gas',
@@ -631,7 +631,7 @@ def publish_discovery(dev, sub=''):
         mqttc.publish(topic, json.dumps(payload))
         if logtxt != "" and config.get('Log', 'show_mqtt_publish') == 'True':
             logging.info(logtxt)
-    if dev == 'elevator':
+    elif dev == 'elevator':
         topic = 'homeassistant/elevator/kocom_wallpad_elevator/config'
         payload = {
             'name': 'Kocom Wallpad Elevator',
@@ -654,7 +654,7 @@ def publish_discovery(dev, sub=''):
         mqttc.publish(topic, json.dumps(payload))
         if logtxt != "" and config.get('Log', 'show_mqtt_publish') == 'True':
             logging.info(logtxt)
-    if dev == 'light':
+    elif dev == 'light':
         for num in range(1, int(config.get('User', 'light_count'))):
             #ha_topic = 'homeassistant/light/kocom_livingroom_light1/config'
             topic = 'homeassistant/light/kocom_livingroom_light{}/config'.format(num)
@@ -679,7 +679,7 @@ def publish_discovery(dev, sub=''):
             mqttc.publish(topic, json.dumps(payload))
             if logtxt != "" and config.get('Log', 'show_mqtt_publish') == 'True':
                 logging.info(logtxt)
-    if dev == 'thermo':
+    elif dev == 'thermo':
         num= int(room_h_dic.get(sub))
         #ha_topic = 'homeassistant/climate/kocom_livingroom_thermostat/config'
         topic = 'homeassistant/climate/kocom_{}_thermostat/config'.format(sub)
@@ -857,21 +857,14 @@ if __name__ == "__main__":
         logging.error('[MQTT] conection error. exit')
         exit(1)
 
-#    dev_list = [x.strip() for x in config.get('Device','enabled').split(',')]
-#    for t in dev_list:
-#        dev = t.split('_')
-#        sub = ''
-#        if len(dev) > 1:
-#            sub = dev[1]
-#        publish_discovery(dev, sub)
-    publish_discovery('light')
-    publish_discovery('thermo', 'livingroom')
-    publish_discovery('thermo', 'room1')
-    publish_discovery('thermo', 'room2')
-    publish_discovery('thermo', 'room3')
-    publish_discovery('fan')
-    publish_discovery('gas')
-    publish_discovery('elevator')
+    dev_list = [x.strip() for x in config.get('Device','enabled').split(',')]
+    for t in dev_list:
+        dev = t.split('_')
+        sub = ''
+        if len(dev) > 1:
+            sub = dev[1]
+        publish_discovery(dev, sub)
+        time.sleep(0.5)
     publish_discovery('query')
 
     msg_q = queue.Queue(BUF_SIZE)

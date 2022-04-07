@@ -662,7 +662,7 @@ def publish_discovery(dev, sub=''):
                 'name': 'Kocom Livingroom Light{}'.format(num),
                 'cmd_t': 'kocom/livingroom/light/{}/command'.format(num),
                 'stat_t': 'kocom/livingroom/light/state',
-                'stat_val_tpl': '{} value_json.light_{} {}'.format('{{', num, '}}'),
+                'stat_val_tpl': '{{ value_json.light_' + str(num) + ' }}',
                 'pl_on': 'on',
                 'pl_off': 'off',
                 'qos': 0,

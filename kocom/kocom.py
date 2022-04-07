@@ -23,6 +23,7 @@ import configparser
 
 
 # define -------------------------------
+SW_VERSION = '2022.04.07'
 CONFIG_FILE = 'kocom.conf'
 BUF_SIZE = 100
 
@@ -253,6 +254,7 @@ def parse(hex_data):
     header_h = hex_data[:4]    # aa55
     type_h = hex_data[4:7]    # send/ack : 30b(send) 30d(ack)
     seq_h = hex_data[7:8]    # sequence : c(1st) d(2nd)
+    monitor_h = hex_data[8:10] # sequence : 00(wallpad) 02(KitchenTV)
     dest_h = hex_data[10:14] # dest addr : 0100(wallpad0) 0e00(light0) 3600(thermo0) 3601(thermo1) 3602(thermo2) 3603(thermo3)
     src_h = hex_data[14:18]   # source addr  
     cmd_h = hex_data[18:20]   # command : 3e(query)
@@ -264,7 +266,7 @@ def parse(hex_data):
     payload_h = hex_data[18:36]
     cmd = cmd_t_dic.get(cmd_h)
 
-    ret = { 'header_h':header_h, 'type_h':type_h, 'seq_h':seq_h, 'dest_h':dest_h, 'src_h':src_h, 'cmd_h':cmd_h, 
+    ret = { 'header_h':header_h, 'type_h':type_h, 'seq_h':seq_h, 'monitor_h':monitor_h, 'dest_h':dest_h, 'src_h':src_h, 'cmd_h':cmd_h, 
             'value_h':value_h, 'chksum_h':chksum_h, 'trailer_h':trailer_h, 'data_h':data_h, 'payload_h':payload_h,
             'type':type_t_dic.get(type_h),
             'seq':seq_t_dic.get(seq_h), 
@@ -550,6 +552,50 @@ def packet_processor(p):
         logging.info(logtxt)
 
 
+#===== publish MQTT Devices Discovery =====
+
+def publish_discovery(dev, remove=False):
+    publish_list = []
+    logtxt = ""
+    #https://www.home-assistant.io/docs/mqtt/discovery/
+    #<discovery_prefix>/<component>/<object_id>/config
+    if dev == 'fan':
+        #ha_topic = 'homeassistant/fan/kocom_wallpad_fan/config'
+        topic = '{}/{}/{}_{}/config'.format('homeassistant', dev, 'kocom_wallpad', 'fan')
+        payload = {
+            'name': 'Kocom Wallpad Fan',
+            'cmd_t': 'kocom/livingroom/fan/command',
+            'stat_t': 'kocom/livingroom/fan/state',
+            'stat_val_tpl': '{{ value_json.state }}',
+            'pr_mode_stat_t': 'kocom/livingroom/fan/state',
+            'pr_mode_val_tpl': '{{ value_json.level }}',
+            'pr_mode_cmd_t': 'kocom/livingroom/fan/set_preset_mode/command',
+            'pr_mode_cmd_tpl': '{{ value }}',
+            'pr_modes': ['0', '1', '2', '3'],
+            'pl_on': 'on',
+            'pl_off': 'off',
+            'qos': '0',
+            'uniq_id': '{}_{}_{}'.format('kocom', 'wallpad', dev)
+            'device': {
+                'name': '코콤 스마트 월패드',
+                'ids': 'kocom_wallpad',
+                'mf': 'KOCOM',
+                'mdl': '스마트 월패드',
+                'sw': SW_VERSION
+            }
+        }
+        if remove:
+            publish_list.append({topic : ''})
+        else:
+            publish_list.append({topic : json.dumps(payload)})
+
+        logtxt='[MQTT Discovery|{}] data[{}]'.format(dev, publish_list)
+        mqttc.publish(publish_list)
+
+        if logtxt != "" and config.get('Log', 'show_mqtt_publish') == 'True':
+            logging.info(logtxt)
+
+
 #===== thread functions ===== 
 
 def poll_state(enforce=False):
@@ -566,6 +612,7 @@ def poll_state(enforce=False):
             thread_instance.start()
 
     for t in dev_list:
+        publish_discovery(t)
         dev = t.split('_')
         if dev[0] in no_polling_list:
             continue

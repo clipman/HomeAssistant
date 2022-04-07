@@ -560,10 +560,10 @@ def publish_discovery(dev, remove=False):
     #https://www.home-assistant.io/docs/mqtt/discovery/
     #<discovery_prefix>/<component>/<object_id>/config
     if dev == 'fan':
-        #ha_topic = 'homeassistant/fan/kocom_wallpad_fan/config'
-        topic = '{}/{}/{}_{}/config'.format('homeassistant', dev, 'kocom_wallpad', 'fan')
+        #ha_topic = 'homeassistant/fan/kocom_ventilation/config'
+        topic = '{}/{}/{}_{}/config'.format('homeassistant', dev, 'kocom', 'ventilation')
         payload = {
-            'name': 'Kocom Wallpad Fan',
+            'name': 'Kocom Fan',
             'cmd_t': 'kocom/livingroom/fan/command',
             'stat_t': 'kocom/livingroom/fan/state',
             'stat_val_tpl': '{{ value_json.state }}',
@@ -578,7 +578,7 @@ def publish_discovery(dev, remove=False):
             'uniq_id': '{}_{}_{}'.format('kocom', 'wallpad', dev),
             'device': {
                 'name': '코콤 스마트 월패드',
-                'ids': 'kocom_wallpad',
+                'ids': 'kocom_smart_wallpad',
                 'mf': 'KOCOM',
                 'mdl': '스마트 월패드',
                 'sw': SW_VERSION

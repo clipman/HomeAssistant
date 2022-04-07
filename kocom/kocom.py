@@ -775,6 +775,6 @@ if __name__ == "__main__":
         thread_instance.start()
 
     publish_discovery('fan')
-    //publish_discovery('query')
+    #publish_discovery('query')
 
     poll_timer.start()

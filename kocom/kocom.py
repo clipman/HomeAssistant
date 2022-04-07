@@ -857,15 +857,6 @@ if __name__ == "__main__":
         logging.error('[MQTT] conection error. exit')
         exit(1)
 
-    dev_list = [x.strip() for x in config.get('Device','enabled').split(',')]
-    for t in dev_list:
-        dev = t.split('_')
-        sub = ''
-        if len(dev) > 1:
-            sub = dev[1]
-        publish_discovery(dev[0], sub)
-    publish_discovery('query')
-
     msg_q = queue.Queue(BUF_SIZE)
     ack_q = queue.Queue(1)
     ack_data = []
@@ -883,3 +874,12 @@ if __name__ == "__main__":
         thread_instance.start()
 
     poll_timer.start()
+
+    dev_list = [x.strip() for x in config.get('Device','enabled').split(',')]
+    for t in dev_list:
+        dev = t.split('_')
+        sub = ''
+        if len(dev) > 1:
+            sub = dev[1]
+        publish_discovery(dev[0], sub)
+    publish_discovery('query')

@@ -584,10 +584,32 @@ def publish_discovery(dev):
                 'sw': SW_VERSION
             }
         }
-
         logtxt='[MQTT Discovery|{}] data[{}]'.format(dev, topic)
         mqttc.publish(topic, json.dumps(payload))
-
+        if logtxt != "" and config.get('Log', 'show_mqtt_publish') == 'True':
+            logging.info(logtxt)
+    if dev == 'query':
+        #ha_topic = 'homeassistant/switch/kocom_wallpad_query/config'
+        topic = '{}/{}/{}_{}/config'.format('homeassistant', 'switch', 'kocom_wallpad', 'query')
+        payload = {
+            'name': 'Kocom Wallpad Query'
+            'cmd_t': 'kocom/myhome/query/command'
+            'stat_t': 'kocom/myhome/query/state'
+            'val_tpl': '{{ value_json.state }}'
+            'pl_on': 'on'
+            'pl_off': 'off'
+            'qos': '0'
+            'uniq_id': '{}_{}_{}'.format('kocom', 'wallpad', dev),
+            'device': {
+                'name': '코콤 스마트 월패드',
+                'ids': 'kocom_smart_wallpad',
+                'mf': 'KOCOM',
+                'mdl': '스마트 월패드',
+                'sw': SW_VERSION
+            }
+        }
+        logtxt='[MQTT Discovery|{}] data[{}]'.format(dev, topic)
+        mqttc.publish(topic, json.dumps(payload))
         if logtxt != "" and config.get('Log', 'show_mqtt_publish') == 'True':
             logging.info(logtxt)
 
@@ -753,5 +775,6 @@ if __name__ == "__main__":
         thread_instance.start()
 
     publish_discovery('fan')
+    publish_discovery('query')
 
     poll_timer.start()

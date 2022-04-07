@@ -1,6 +1,6 @@
 {
   "name": "Kocom Wallpad with RS485",
-  "version": "2022.04.02",
+  "version": "2022.04.07",
   "slug": "kocom",
   "description": "Kocom Wallpad for Home Assistant",
   "arch": [

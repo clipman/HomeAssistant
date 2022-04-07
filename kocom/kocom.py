@@ -297,10 +297,10 @@ def light_parse(value):
 
 
 def fan_parse(value):
-    level_dic = {'40':'Low', '80':'Medium', 'c0':'High'}
+    preset_dic = {'40':'Low', '80':'Medium', 'c0':'High'}
     state = 'off' if value[:2] == '10' else 'on' #state = 'off' if value[:2] == '00' else 'on'
-    level = 'Off' if state == 'off' else level_dic.get(value[4:6])
-    return { 'state': state, 'level': level}
+    preset = 'Off' if state == 'off' else preset_dic.get(value[4:6])
+    return { 'state': state, 'preset': preset}
 
 
 # query device --------------------------
@@ -587,7 +587,7 @@ def publish_discovery(dev, sub=''):
             'stat_t': 'kocom/livingroom/fan/state',
             'stat_val_tpl': '{{ value_json.state }}',
             'pr_mode_stat_t': 'kocom/livingroom/fan/state',
-            'pr_mode_val_tpl': '{{ value_json.level }}',
+            'pr_mode_val_tpl': '{{ value_json.preset }}',
             'pr_mode_cmd_t': 'kocom/livingroom/fan/set_preset_mode/command',
             'pr_mode_cmd_tpl': '{{ value }}',
             'pr_modes': ['Off', 'Low', 'Medium', 'High'],

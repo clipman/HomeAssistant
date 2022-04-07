@@ -297,7 +297,7 @@ def light_parse(value):
 
 
 def fan_parse(value):
-    level_dic = {'00':'Off', '40':'Low', '80':'Medium', 'c0':'High'}
+    level_dic = {'40':'Low', '80':'Medium', 'c0':'High'}
     state = 'off' if value[:2] == '10' else 'on' #state = 'off' if value[:2] == '00' else 'on'
     level = 'Off' if state == 'off' else level_dic.get(value[4:6])
     return { 'state': state, 'level': level}
@@ -471,7 +471,7 @@ def mqtt_on_message(mqttc, obj, msg):
     elif 'fan' in topic_d and 'set_preset_mode' in topic_d:
         dev_id = device_h_dic['fan'] + room_h_dic.get(topic_d[1])
         onoff_dic = {'off':'1000', 'on':'1100'}  #onoff_dic = {'off':'0000', 'on':'1101'}
-        speed_dic = {'Off':'00', 'Low':'40', 'Medium':'80', 'High':'c0'}
+        speed_dic = {'Low':'40', 'Medium':'80', 'High':'c0'}
         if command == 'Off':
             onoff = onoff_dic['off'] 
         elif command in speed_dic.keys(): # fan on with specified speed
@@ -485,7 +485,7 @@ def mqtt_on_message(mqttc, obj, msg):
     elif 'fan' in topic_d:
         dev_id = device_h_dic['fan'] + room_h_dic.get(topic_d[1])
         onoff_dic = {'off':'1000', 'on':'1100'}  #onoff_dic = {'off':'0000', 'on':'1101'}
-        speed_dic = {'Off':'00', 'Low':'40', 'Medium':'80', 'High':'c0'}
+        speed_dic = {'Low':'40', 'Medium':'80', 'High':'c0'}
         init_fan_mode = config.get('User', 'init_fan_mode')
         if command in onoff_dic.keys(): # fan on off with previous speed 
             onoff = onoff_dic.get(command)

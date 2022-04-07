@@ -23,7 +23,7 @@ import configparser
 
 
 # define -------------------------------
-SW_VERSION = '2022.04.07'
+SW_VERSION = '2022.04.08'
 CONFIG_FILE = 'kocom.conf'
 BUF_SIZE = 100
 
@@ -471,7 +471,7 @@ def mqtt_on_message(mqttc, obj, msg):
     elif 'fan' in topic_d and 'set_preset_mode' in topic_d:
         dev_id = device_h_dic['fan'] + room_h_dic.get(topic_d[1])
         onoff_dic = {'off':'1000', 'on':'1100'}  #onoff_dic = {'off':'0000', 'on':'1101'}
-        speed_dic = {'1':'40', '2':'80', '3':'c0'}
+        speed_dic = {'Low':'40', 'Medium':'80', 'High':'c0'}
         if command == '0':
             onoff = onoff_dic['off'] 
             speed = '00'
@@ -486,7 +486,7 @@ def mqtt_on_message(mqttc, obj, msg):
     elif 'fan' in topic_d:
         dev_id = device_h_dic['fan'] + room_h_dic.get(topic_d[1])
         onoff_dic = {'off':'1000', 'on':'1100'}  #onoff_dic = {'off':'0000', 'on':'1101'}
-        speed_dic = {'1':'40', '2':'80', '3':'c0'}
+        speed_dic = {'Low':'40', 'Medium':'80', 'High':'c0'}
         init_fan_mode = config.get('User', 'init_fan_mode')
         if command in onoff_dic.keys(): # fan on off with previous speed 
             onoff = onoff_dic.get(command)
@@ -591,7 +591,7 @@ def publish_discovery(dev, sub=''):
             'pr_mode_val_tpl': '{{ value_json.level }}',
             'pr_mode_cmd_t': 'kocom/livingroom/fan/set_preset_mode/command',
             'pr_mode_cmd_tpl': '{{ value }}',
-            'pr_modes': ['0', '1', '2', '3'],
+            'pr_modes': ['Off', 'Low', 'Medium', 'High'],
             'pl_on': 'on',
             'pl_off': 'off',
             'qos': 0,

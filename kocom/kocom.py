@@ -560,10 +560,10 @@ def publish_discovery(dev):
     #https://www.home-assistant.io/docs/mqtt/discovery/
     #<discovery_prefix>/<component>/<object_id>/config
     if dev == 'fan':
-        #ha_topic = 'homeassistant/fan/kocom_ventilation/config'
-        topic = '{}/{}/{}_{}/config'.format('homeassistant', dev, 'kocom', 'ventilation')
+        #ha_topic = 'homeassistant/fan/kocom_wallpad_fan/config'
+        topic = '{}/{}/{}_{}/config'.format('homeassistant', dev, 'kocom_wallpad', 'fan')
         payload = {
-            'name': 'Kocom Fan',
+            'name': 'Kocom Wallpad Fan',
             'cmd_t': 'kocom/livingroom/fan/command',
             'stat_t': 'kocom/livingroom/fan/state',
             'stat_val_tpl': '{{ value_json.state }}',

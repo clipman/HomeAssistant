@@ -557,8 +557,6 @@ def packet_processor(p):
 #https://www.home-assistant.io/docs/mqtt/discovery/
 #<discovery_prefix>/<component>/<object_id>/config
 def publish_discovery(dev, sub=''):
-    publish_list = []
-    logtxt = ""
     if dev == 'query':
         topic = 'homeassistant/switch/kocom_wallpad_query/config'
         payload = {
@@ -859,6 +857,15 @@ if __name__ == "__main__":
         logging.error('[MQTT] conection error. exit')
         exit(1)
 
+    dev_list = [x.strip() for x in config.get('Device','enabled').split(',')]
+    for t in dev_list:
+        dev = t.split('_')
+        sub = ''
+        if len(dev) > 1:
+            sub = dev[1]
+        publish_discovery(dev, sub)
+    publish_discovery('query')
+
     msg_q = queue.Queue(BUF_SIZE)
     ack_q = queue.Queue(1)
     ack_data = []
@@ -876,12 +883,3 @@ if __name__ == "__main__":
         thread_instance.start()
 
     poll_timer.start()
-
-    dev_list = [x.strip() for x in config.get('Device','enabled').split(',')]
-    for t in dev_list:
-        dev = t.split('_')
-        sub = ''
-        if len(dev) > 1:
-            sub = dev[1]
-        publish_discovery(dev, sub)
-    publish_discovery('query')

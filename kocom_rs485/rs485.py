@@ -495,7 +495,10 @@ class Kocom(rs485):
             try:
                 if command != 'mode':
                     self.wp_list[device][room]['speed']['set'] = payload
-                    self.wp_list[device][room]['mode']['set'] = 'on'
+                    if payload == 'off':
+                        self.wp_list[device][room]['mode']['set'] = 'off'
+                    else:
+                        self.wp_list[device][room]['mode']['set'] = 'on'
                 elif command == 'mode':
                     self.wp_list[device][room]['speed']['set'] = DEFAULT_SPEED if payload == 'on' else 'off'
                     self.wp_list[device][room]['mode']['set'] = payload

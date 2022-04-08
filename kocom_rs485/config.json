@@ -1,0 +1,26 @@
+﻿{
+  "name": "Kocom Wallpad Controller with RS485",
+  "version": "2022.04.08",
+  "slug": "kocom_rs485",
+  "description": "Kocom Wallpad Controller with RS485",
+  "arch": [
+    "armhf",
+    "armv7",
+    "aarch64",
+    "amd64",
+    "i386"
+  ],
+  "url": "https://github.com/clipman/addons",
+  "startup": "application",
+  "boot": "auto",
+  "uart": true,
+  "map": [
+    "share:rw"
+  ],
+  "options": {
+    "share/kocom/rs485.conf 설정파일": true
+  },
+  "schema": {
+    "share/kocom/rs485.conf 설정파일": "bool"
+  }
+}

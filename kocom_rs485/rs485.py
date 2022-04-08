@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 '''
 python -m pip install pyserial
 python -m pip install paho-mqtt

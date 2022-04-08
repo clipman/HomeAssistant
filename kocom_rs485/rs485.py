@@ -667,8 +667,8 @@ class Kocom(rs485):
                                 'pl_off': 'off',
                                 'uniq_id': '{}_{}_{}'.format(self._name, room, sub_device),
                                 'device': {
-                                    'name': 'Kocom {}'.format(room),
-                                    'ids': 'kocom_{}'.format(room),
+                                    'name': 'Kocom {}'.format('wallpad'),    #room
+                                    'ids': 'kocom_{}'.format('wallpad'),     #room
                                     'mf': 'KOCOM',
                                     'mdl': 'Wallpad',
                                     'sw': SW_VERSION
@@ -697,8 +697,8 @@ class Kocom(rs485):
                                 'pl_off': 'off',
                                 'uniq_id': '{}_{}_{}'.format(self._name, room, sub_device),
                                 'device': {
-                                    'name': 'Kocom {}'.format(room),
-                                    'ids': 'kocom_{}'.format(room),
+                                    'name': 'Kocom {}'.format('wallpad'),    #room
+                                    'ids': 'kocom_{}'.format('wallpad'),     #room
                                     'mf': 'KOCOM',
                                     'mdl': 'Wallpad',
                                     'sw': SW_VERSION
@@ -731,8 +731,8 @@ class Kocom(rs485):
                         'modes': ['off', 'heat', 'fan_only'],
                         'uniq_id': '{}_{}_{}'.format(self._name, room, DEVICE_THERMOSTAT),
                         'device': {
-                            'name': 'Kocom {}'.format(room),
-                            'ids': 'kocom_{}'.format(room),
+                            'name': 'Kocom {}'.format('wallpad'),    #room
+                            'ids': 'kocom_{}'.format('wallpad'),     #room
                             'mf': 'KOCOM',
                             'mdl': 'Wallpad',
                             'sw': SW_VERSION

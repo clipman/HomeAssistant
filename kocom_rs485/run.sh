@@ -2,7 +2,7 @@
 
 SHARE_DIR=/share/kocom
 
-if [ ! -f $SHARE_DIR/rs485.conf ]; then
+if [ ! -f $SHARE_DIR/rs485.py ]; then
 	mkdir $SHARE_DIR
 	mv /rs485.py $SHARE_DIR
 fi

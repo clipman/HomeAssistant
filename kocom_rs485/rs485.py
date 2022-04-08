@@ -983,11 +983,11 @@ class Kocom(rs485):
     def set_serial(self, device, room, target, value, cmd='상태'):
         if (time.time() - self.tick) < KOCOM_INTERVAL / 1000:
             return
+        packet = self.make_packet(device, room, '상태', target, value) if cmd == '상태' else  self.make_packet(device, room, '조회', '', '')
         if cmd == '상태':
             logger.info('[To {}]{}/{}/{} -> {}'.format(self._name, device, room, target, value))
         elif cmd == '조회':
             logger.info('[To {}]{}/{} -> 조회[{}]'.format(self._name, device, room, packet))
-        packet = self.make_packet(device, room, '상태', target, value) if cmd == '상태' else  self.make_packet(device, room, '조회', '', '')
         v = self.value_packet(self.parse_packet(packet))
 
         logger.debug('[To {}]{}'.format(self._name, packet))

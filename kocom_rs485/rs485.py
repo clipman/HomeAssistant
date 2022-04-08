@@ -142,7 +142,7 @@ def make_folder(folder_name):
     if not os.path.isdir(folder_name):
         os.mkdir(folder_name)
 #root_dir = str(os.path.dirname(os.path.realpath(__file__)))
-root_dir = '/share/kocom/'
+root_dir = '/share/kocom'
 log_dir = root_dir + '/log/'
 make_folder(log_dir)
 conf_path = str(root_dir + '/'+ CONF_FILE)

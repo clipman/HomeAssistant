@@ -310,12 +310,12 @@ class Kocom(rs485):
             elif d_name == DEVICE_LIGHT or d_name == DEVICE_PLUG:
                 self.wp_list[d_name] = {}
                 for r_name in KOCOM_ROOM.values():
-                    self.wp_list[d_name][r_name] = {'scan': {'tick': 0, 'count': 0, 'last': 0}}
-                    if d_name == DEVICE_LIGHT:
+                    if d_name == DEVICE_LIGHT and KOCOM_LIGHT_SIZE[r_name] > 0:
+                        self.wp_list[d_name][r_name] = {'scan': {'tick': 0, 'count': 0, 'last': 0}}
                         for i in range(0, KOCOM_LIGHT_SIZE[r_name] + 1):
-                            if KOCOM_LIGHT_SIZE[r_name] > 0:
-                                self.wp_list[d_name][r_name][d_name + str(i)] = {'state': 'off', 'set': 'off', 'last': 'state', 'count': 0}
-                    if d_name == DEVICE_PLUG:
+                            self.wp_list[d_name][r_name][d_name + str(i)] = {'state': 'off', 'set': 'off', 'last': 'state', 'count': 0}
+                    if d_name == DEVICE_PLUG and KOCOM_PLUG_SIZE[r_name] > 0:
+                        self.wp_list[d_name][r_name] = {'scan': {'tick': 0, 'count': 0, 'last': 0}}
                         for i in range(0, KOCOM_PLUG_SIZE[r_name] + 1):
                             self.wp_list[d_name][r_name][d_name + str(i)] = {'state': 'on', 'set': 'on', 'last': 'state', 'count': 0}
 
@@ -986,7 +986,7 @@ class Kocom(rs485):
         if cmd == '상태':
             logger.info('[To {}]{}/{}/{} -> {}'.format(self._name, device, room, target, value))
         elif cmd == '조회':
-            logger.info('[To {}]{}/{} -> 조회'.format(self._name, device, room))
+            logger.info('[To {}]{}/{} -> 조회[{}]'.format(self._name, device, room, packet))
         packet = self.make_packet(device, room, '상태', target, value) if cmd == '상태' else  self.make_packet(device, room, '조회', '', '')
         v = self.value_packet(self.parse_packet(packet))
 

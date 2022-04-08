@@ -497,7 +497,6 @@ def mqtt_on_message(mqttc, obj, msg):
     # kocom/myhome/query/command
     elif 'query' in topic_d:
         if command == 'on':
-            discovery()
             poll_state(enforce=True)
 
 
@@ -562,7 +561,7 @@ def discovery():
         if len(dev) > 1:
             sub = dev[1]
         publish_discovery(dev[0], sub)
-    #publish_discovery('query')
+    publish_discovery('query')
 
 #https://www.home-assistant.io/docs/mqtt/discovery/
 #<discovery_prefix>/<component>/<object_id>/config

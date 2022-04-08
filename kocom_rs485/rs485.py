@@ -19,7 +19,7 @@ import paho.mqtt.client as mqtt
 from collections import OrderedDict
 
 # Version
-SW_VERSION = 'RS485 Compilation 2022.04.08'
+SW_VERSION = 'RS485 Compilation 2022.04.09'
 # Log Level
 CONF_LOGLEVEL = 'info' # debug, info, warn
 

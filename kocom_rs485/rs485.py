@@ -313,7 +313,8 @@ class Kocom(rs485):
                     self.wp_list[d_name][r_name] = {'scan': {'tick': 0, 'count': 0, 'last': 0}}
                     if d_name == DEVICE_LIGHT:
                         for i in range(0, KOCOM_LIGHT_SIZE[r_name] + 1):
-                            self.wp_list[d_name][r_name][d_name + str(i)] = {'state': 'off', 'set': 'off', 'last': 'state', 'count': 0}
+                            if KOCOM_LIGHT_SIZE[r_name] > 0:
+                                self.wp_list[d_name][r_name][d_name + str(i)] = {'state': 'off', 'set': 'off', 'last': 'state', 'count': 0}
                     if d_name == DEVICE_PLUG:
                         for i in range(0, KOCOM_PLUG_SIZE[r_name] + 1):
                             self.wp_list[d_name][r_name][d_name + str(i)] = {'state': 'on', 'set': 'on', 'last': 'state', 'count': 0}

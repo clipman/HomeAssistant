@@ -641,7 +641,6 @@ class Kocom(rs485):
             }
             subscribe_list.append((ha_topic, 0))
             subscribe_list.append((ha_payload['cmd_t'], 0))
-            subscribe_list.append((ha_payload['pr_mode_stat_t'], 0))
             subscribe_list.append((ha_payload['pr_mode_cmd_t'], 0))
             #subscribe_list.append((ha_payload['stat_t'], 0))
             #subscribe_list.append((ha_payload['spd_cmd_t'], 0))

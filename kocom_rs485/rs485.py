@@ -28,17 +28,17 @@ CONF_LOGLEVEL = 'info' # debug, info, warn
 # 본인에 맞게 수정하세요
 
 # 보일러 초기값
-INIT_TEMP = 23
+INIT_TEMP = 22
 # 환풍기 초기속도 ['low', 'medium', 'high']
 DEFAULT_SPEED = 'medium'
 # 조명 / 플러그 갯수
-KOCOM_LIGHT_SIZE            = {'livingroom': 2, 'bedroom': 0, 'room1': 0, 'room2': 0, 'kitchen': 0}
-KOCOM_PLUG_SIZE             = {'livingroom': 0, 'bedroom': 0, 'room1': 0, 'room2': 0, 'kitchen': 0}
+KOCOM_LIGHT_SIZE            = {'livingroom': 3, 'bedroom': 2, 'room1': 2, 'room2': 2, 'kitchen': 3}
+KOCOM_PLUG_SIZE             = {'livingroom': 2, 'bedroom': 2, 'room1': 2, 'room2': 2, 'kitchen': 2}
 
 # 방 패킷에 따른 방이름 (패킷1: 방이름1, 패킷2: 방이름2 . . .)
 # 월패드에서 장치를 작동하며 방이름(livingroom, bedroom, room1, room2, kitchen 등)을 확인하여 본인의 상황에 맞게 바꾸세요
 # 조명/콘센트와 난방의 방패킷이 달라서 두개로 나뉘어있습니다.
-KOCOM_ROOM                  = {'00': 'livingroom', '01': 'bedroom', '02': 'room1', '03': 'room2', '04': 'kitchen'}
+KOCOM_ROOM                  = {'00': 'livingroom', '01': 'bedroom', '02': 'room2', '03': 'room1', '04': 'kitchen'}
 KOCOM_ROOM_THERMOSTAT       = {'00': 'livingroom', '01': 'bedroom', '02': 'room1', '03': 'room2'}
 
 # TIME 변수(초)
@@ -138,15 +138,14 @@ CONF_SOCKET = 'Socket'
 CONF_SOCKET_DEVICE = 'SocketDevice'
 
 # Log 폴더 생성 (도커 실행 시 로그폴더 매핑)
-def make_folder(folder_name):
-    if not os.path.isdir(folder_name):
-        os.mkdir(folder_name)
-#root_dir = str(os.path.dirname(os.path.realpath(__file__)))
-root_dir = '/share/kocom'
-log_dir = root_dir + '/log/'
-make_folder(log_dir)
+#def make_folder(folder_name):
+#    if not os.path.isdir(folder_name):
+#        os.mkdir(folder_name)
+root_dir = str(os.path.dirname(os.path.realpath(__file__)))     #root_dir = '/share/kocom'
+#log_dir = root_dir + '/log/'
+#make_folder(log_dir)
 conf_path = str(root_dir + '/'+ CONF_FILE)
-log_path = str(log_dir + '/' + CONF_LOGFILE)
+#log_path = str(log_dir + '/' + CONF_LOGFILE)
 
 class rs485:
     def __init__(self):
@@ -507,7 +506,7 @@ class Kocom(rs485):
                 self.wp_list[device][room]['mode']['last'] = 'set'
                 ha_payload = {
                     'mode': self.wp_list[device][room]['mode']['set'],
-                    'speed': self.wp_list[device][room]['speed']['set'],
+                    'speed': self.wp_list[device][room]['speed']['set']
                 }
                 logger.info('[From HA]{}/{}/set = [mode={}, speed={}]'.format(device, room, self.wp_list[device][room]['mode']['set'], self.wp_list[device][room]['speed']['set']))
                 self.send_to_homeassistant(device, room, ha_payload)
@@ -551,7 +550,7 @@ class Kocom(rs485):
                 'name': '{}_{}_{}'.format(self._name, 'wallpad', DEVICE_ELEVATOR),
                 'cmd_t': '{}/{}/{}_{}/set'.format(HA_PREFIX, HA_SWITCH, 'wallpad', DEVICE_ELEVATOR),
                 'stat_t': '{}/{}/{}/state'.format(HA_PREFIX, HA_SWITCH, 'wallpad'),
-                'stat_val_tpl': '{{ value_json.' + DEVICE_ELEVATOR + ' }}',  #'val_tpl': '{{ value_json.' + DEVICE_ELEVATOR + ' }}',
+                'stat_val_tpl': '{{ value_json.' + DEVICE_ELEVATOR + ' }}',
                 'ic': 'mdi:elevator',
                 'pl_on': 'on',
                 'pl_off': 'off',
@@ -566,7 +565,6 @@ class Kocom(rs485):
             }
             subscribe_list.append((ha_topic, 0))
             subscribe_list.append((ha_payload['cmd_t'], 0))
-            #subscribe_list.append((ha_payload['stat_t'], 0))
             if remove:
                 publish_list.append({ha_topic : ''})
             else:
@@ -577,7 +575,7 @@ class Kocom(rs485):
                 'name': '{}_{}_{}'.format(self._name, 'wallpad', DEVICE_GAS),
                 'cmd_t': '{}/{}/{}_{}/set'.format(HA_PREFIX, HA_SWITCH, 'wallpad', DEVICE_GAS),
                 'stat_t': '{}/{}/{}_{}/state'.format(HA_PREFIX, HA_SWITCH, 'wallpad', DEVICE_GAS),
-                'stat_val_tpl': '{{ value_json.' + DEVICE_GAS + ' }}',  #'val_tpl': '{{ value_json.' + DEVICE_GAS + ' }}',
+                'stat_val_tpl': '{{ value_json.' + DEVICE_GAS + ' }}',
                 'ic': 'mdi:gas-cylinder',
                 'pl_on': 'on',
                 'pl_off': 'off',
@@ -592,7 +590,6 @@ class Kocom(rs485):
             }
             subscribe_list.append((ha_topic, 0))
             subscribe_list.append((ha_payload['cmd_t'], 0))
-            #subscribe_list.append((ha_payload['stat_t'], 0))
             if remove:
                 publish_list.append({ha_topic : ''})
             else:
@@ -602,7 +599,7 @@ class Kocom(rs485):
             ha_payload = {
                 'name': '{}_{}_{}'.format(self._name, 'wallpad', DEVICE_GAS),
                 'stat_t': '{}/{}/{}_{}/state'.format(HA_PREFIX, HA_SENSOR, 'wallpad', DEVICE_GAS),
-                'stat_val_tpl': '{{ value_json.' + DEVICE_GAS + ' }}',  #'val_tpl': '{{ value_json.' + DEVICE_GAS + ' }}',
+                'stat_val_tpl': '{{ value_json.' + DEVICE_GAS + ' }}',
                 'ic': 'mdi:gas-cylinder',
                 'uniq_id': '{}_{}_{}'.format(self._name, 'wallpad_sensor', DEVICE_GAS),
                 'device': {
@@ -614,7 +611,6 @@ class Kocom(rs485):
                 }
             }
             subscribe_list.append((ha_topic, 0))
-            #subscribe_list.append((ha_payload['stat_t'], 0))
             publish_list.append({ha_topic : json.dumps(ha_payload)})
         if self.wp_fan:
             ha_topic = '{}/{}/{}_{}/config'.format(HA_PREFIX, HA_FAN, 'wallpad', DEVICE_FAN)
@@ -628,10 +624,6 @@ class Kocom(rs485):
                 'pr_mode_cmd_t': '{}/{}/{}/speed'.format(HA_PREFIX, HA_FAN, 'wallpad'),
                 'pr_mode_cmd_tpl': '{{ value }}',
                 'pr_modes' : ['off', 'low', 'medium', 'high'],
-                #'spd_cmd_t': '{}/{}/{}/speed'.format(HA_PREFIX, HA_FAN, 'wallpad'),
-                #'spd_stat_t': '{}/{}/{}/state'.format(HA_PREFIX, HA_FAN, 'wallpad'),
-                #'spd_val_tpl': '{{ value_json.speed }}',
-                #'spds': ['low', 'medium', 'high', 'off'],
                 'pl_on': 'on',
                 'pl_off': 'off',
                 'uniq_id': '{}_{}_{}'.format(self._name, 'wallpad', DEVICE_FAN),
@@ -646,8 +638,6 @@ class Kocom(rs485):
             subscribe_list.append((ha_topic, 0))
             subscribe_list.append((ha_payload['cmd_t'], 0))
             subscribe_list.append((ha_payload['pr_mode_cmd_t'], 0))
-            #subscribe_list.append((ha_payload['stat_t'], 0))
-            #subscribe_list.append((ha_payload['spd_cmd_t'], 0))
             if remove:
                 publish_list.append({ha_topic : ''})
             else:
@@ -656,13 +646,13 @@ class Kocom(rs485):
             for room, r_value in self.wp_list[DEVICE_LIGHT].items():
                 if type(r_value) == dict:
                     for sub_device, d_value in r_value.items():
-                        if type(d_value) == dict and sub_device != 'scan':    #clipman, if type(d_value) == dict:
+                        if type(d_value) == dict and sub_device != 'scan':
                             ha_topic = '{}/{}/{}_{}/config'.format(HA_PREFIX, HA_LIGHT, room, sub_device)
                             ha_payload = {
                                 'name': '{}_{}_{}'.format(self._name, room, sub_device),
                                 'cmd_t': '{}/{}/{}_{}/set'.format(HA_PREFIX, HA_LIGHT, room, sub_device),
                                 'stat_t': '{}/{}/{}/state'.format(HA_PREFIX, HA_LIGHT, room),
-                                'stat_val_tpl': '{{ value_json.' + str(sub_device) + ' }}',     #'val_tpl': '{{ value_json.' + str(sub_device) + ' }}',
+                                'stat_val_tpl': '{{ value_json.' + str(sub_device) + ' }}',
                                 'pl_on': 'on',
                                 'pl_off': 'off',
                                 'uniq_id': '{}_{}_{}'.format(self._name, room, sub_device),
@@ -676,7 +666,6 @@ class Kocom(rs485):
                             }
                             subscribe_list.append((ha_topic, 0))
                             subscribe_list.append((ha_payload['cmd_t'], 0))
-                            #subscribe_list.append((ha_payload['stat_t'], 0))
                             if remove:
                                 publish_list.append({ha_topic : ''})
                             else:
@@ -685,13 +674,13 @@ class Kocom(rs485):
             for room, r_value in self.wp_list[DEVICE_PLUG].items():
                 if type(r_value) == dict:
                     for sub_device, d_value in r_value.items():
-                        if type(d_value) == dict and sub_device != 'scan':    #clipman, if type(d_value) == dict:
+                        if type(d_value) == dict and sub_device != 'scan':
                             ha_topic = '{}/{}/{}_{}/config'.format(HA_PREFIX, HA_SWITCH, room, sub_device)
                             ha_payload = {
                                 'name': '{}_{}_{}'.format(self._name, room, sub_device),
                                 'cmd_t': '{}/{}/{}_{}/set'.format(HA_PREFIX, HA_SWITCH, room, sub_device),
                                 'stat_t': '{}/{}/{}/state'.format(HA_PREFIX, HA_SWITCH, room),
-                                'stat_val_tpl': '{{ value_json.' + str(sub_device) + ' }}',  #'val_tpl': '{{ value_json.' + str(sub_device) + ' }}',
+                                'stat_val_tpl': '{{ value_json.' + str(sub_device) + ' }}',
                                 'ic': 'mdi:power-socket-eu',
                                 'pl_on': 'on',
                                 'pl_off': 'off',
@@ -706,7 +695,6 @@ class Kocom(rs485):
                             }
                             subscribe_list.append((ha_topic, 0))
                             subscribe_list.append((ha_payload['cmd_t'], 0))
-                            #subscribe_list.append((ha_payload['stat_t'], 0))
                             if remove:
                                 publish_list.append({ha_topic : ''})
                             else:
@@ -740,9 +728,7 @@ class Kocom(rs485):
                     }
                     subscribe_list.append((ha_topic, 0))
                     subscribe_list.append((ha_payload['mode_cmd_t'], 0))
-                    #subscribe_list.append((ha_payload['mode_stat_t'], 0))
                     subscribe_list.append((ha_payload['temp_cmd_t'], 0))
-                    #subscribe_list.append((ha_payload['temp_stat_t'], 0))
                     if remove:
                         publish_list.append({ha_topic : ''})
                     else:
@@ -1115,22 +1101,23 @@ if __name__ == '__main__':
     if CONF_LOGLEVEL == "warn": logger.setLevel(logging.WARN)
 
     # formatter 생성
-    logFormatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s : Line %(lineno)s - %(message)s')
+    #logFormatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s : Line %(lineno)s - %(message)s')
+    logFormatter = logging.Formatter('%(asctime)s : Line %(lineno)s - %(message)s')
 
     # fileHandler, StreamHandler 생성
-    file_max_bytes = 100 * 1024 * 10 # 1 MB 사이즈
-    logFileHandler = logging.handlers.RotatingFileHandler(filename=log_path, maxBytes=file_max_bytes, backupCount=10, encoding='utf-8')
+    #file_max_bytes = 100 * 1024 * 10 # 1 MB 사이즈
+    #logFileHandler = logging.handlers.RotatingFileHandler(filename=log_path, maxBytes=file_max_bytes, backupCount=10, encoding='utf-8')
     logStreamHandler = logging.StreamHandler()
 
     # handler 에 formatter 설정
-    logFileHandler.setFormatter(logFormatter)
+    #logFileHandler.setFormatter(logFormatter)
     logStreamHandler.setFormatter(logFormatter)
-    logFileHandler.suffix = "%Y%m%d"
+    #logFileHandler.suffix = "%Y%m%d"
 
-    logger.addHandler(logFileHandler)
-    #logger.addHandler(logStreamHandler)
+    #logger.addHandler(logFileHandler)
+    logger.addHandler(logStreamHandler)
 
-    logging.info('{} 시작'.format(SW_VERSION))
+    #logging.info('{} 시작'.format(SW_VERSION))
     logger.info('{} 시작'.format(SW_VERSION))
 
     connection_flag = False

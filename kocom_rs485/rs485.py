@@ -604,7 +604,7 @@ class Kocom(rs485):
                 'stat_t': '{}/{}/{}_{}/state'.format(HA_PREFIX, HA_SENSOR, 'wallpad', DEVICE_GAS),
                 'stat_val_tpl': '{{ value_json.' + DEVICE_GAS + ' }}',  #'val_tpl': '{{ value_json.' + DEVICE_GAS + ' }}',
                 'ic': 'mdi:gas-cylinder',
-                'uniq_id': '{}_{}_{}'.format(self._name, 'wallpad', DEVICE_GAS),
+                'uniq_id': '{}_{}_{}'.format(self._name, 'wallpad_sensor', DEVICE_GAS),
                 'device': {
                     'name': 'Kocom {}'.format('wallpad'),
                     'ids': 'kocom_{}'.format('wallpad'),
@@ -665,7 +665,7 @@ class Kocom(rs485):
                                 'stat_val_tpl': '{{ value_json.' + str(sub_device) + ' }}',     #'val_tpl': '{{ value_json.' + str(sub_device) + ' }}',
                                 'pl_on': 'on',
                                 'pl_off': 'off',
-                                'uniq_id': '{}_{}_{}'.format(self._name, 'wallpad', sub_device),
+                                'uniq_id': '{}_{}_{}'.format(self._name, room, sub_device),
                                 'device': {
                                     'name': 'Kocom {}'.format('wallpad'),
                                     'ids': 'kocom_{}'.format('wallpad'),
@@ -695,7 +695,7 @@ class Kocom(rs485):
                                 'ic': 'mdi:power-socket-eu',
                                 'pl_on': 'on',
                                 'pl_off': 'off',
-                                'uniq_id': '{}_{}_{}'.format(self._name, 'wallpad', sub_device),
+                                'uniq_id': '{}_{}_{}'.format(self._name, room, sub_device),
                                 'device': {
                                     'name': 'Kocom {}'.format('wallpad'),
                                     'ids': 'kocom_{}'.format('wallpad'),
@@ -729,7 +729,7 @@ class Kocom(rs485):
                         'max_temp': 40,
                         'temp_step': 1,
                         'modes': ['off', 'heat', 'fan_only'],
-                        'uniq_id': '{}_{}_{}'.format(self._name, 'wallpad', DEVICE_THERMOSTAT),
+                        'uniq_id': '{}_{}_{}'.format(self._name, room, DEVICE_THERMOSTAT),
                         'device': {
                             'name': 'Kocom {}'.format('wallpad'),
                             'ids': 'kocom_{}'.format('wallpad'),

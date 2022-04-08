@@ -11,7 +11,7 @@ fi
 echo "[Info] Run Kocom Wallpad Controller"
 
 cd $SHARE_DIR
-python3 /rs485.py
+python3 $SHARE_DIR/rs485.py
 
 # for dev
 while true; do echo "still live"; sleep 100; done

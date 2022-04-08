@@ -1,6 +1,6 @@
 {
   "name": "Kocom Wallpad Controller with RS485",
-  "version": "2022.04.08",
+  "version": "2022.04.09",
   "slug": "kocom_rs485",
   "description": "Kocom Wallpad Controller with RS485",
   "arch": [

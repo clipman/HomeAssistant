@@ -21,7 +21,7 @@ Kocom Call with RS485
 
 ## Configuration
 
-switchs.yaml
+configuration.yaml
 이 파일들을 참고하여 설정합니다.
 
 

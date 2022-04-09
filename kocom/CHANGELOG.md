@@ -1,1 +1,1 @@
-2022.04.09 MQTT Discovery 지원
+2022.04.10 MQTT Discovery 지원

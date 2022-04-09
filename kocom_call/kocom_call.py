@@ -274,14 +274,14 @@ def mqtt_on_message(mqttc, obj, msg):
     # home_call off : kocom/myhome/home_call/command
     if 'home_call' in topic_d:
         dev_id = device_h_dic['home'] + room_h_dic.get(topic_d[1])
-        if command == 'off':
+        if command == 'PRESS':
             send_packet('aa5579bc02020031ffffff61ffffff030008d30d0d')
             time.sleep(1)
             send_packet('aa5579bc02020031ffffff61ffffff240097a20d0d')
     # gate_call off : kocom/myhome/gate_call/command
     elif 'gate_call' in topic_d:
         dev_id = device_h_dic['gate'] + room_h_dic.get(topic_d[1])
-        if command == 'off':
+        if command == 'PRESS':
             send_packet('aa5579bc080200ffffffff61ffffff030026950d0d')
             time.sleep(1)
             send_packet('aa5579bc080200ffffffff61ffffff2400b9e40d0d')

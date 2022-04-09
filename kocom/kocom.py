@@ -590,9 +590,10 @@ def publish_discovery(dev, sub=''):
         if logtxt != "" and config.get('Log', 'show_mqtt_publish') == 'True':
             logging.info(logtxt)
     elif dev == 'gas':
-        topic = 'homeassistant/gas/kocom_wallpad_gas/config'
+        topic = 'homeassistant/switch/kocom_wallpad_gas/config'
         payload = {
             'name': 'Kocom Wallpad Gas',
+            'ic': 'mdi:gas-cylinder',
             'cmd_t': 'kocom/livingroom/gas/command',
             'stat_t': 'kocom/livingroom/gas/state',
             'val_tpl': '{{ value_json.state }}',
@@ -613,9 +614,10 @@ def publish_discovery(dev, sub=''):
         if logtxt != "" and config.get('Log', 'show_mqtt_publish') == 'True':
             logging.info(logtxt)
     elif dev == 'elevator':
-        topic = 'homeassistant/elevator/kocom_wallpad_elevator/config'
+        topic = 'homeassistant/switch/kocom_elevator/config'
         payload = {
-            'name': 'Kocom Wallpad Elevator',
+            'name': 'Kocom Elevator',
+            'ic': 'mdi:elevator',
             'cmd_t': "kocom/myhome/elevator/command",
             'stat_t': "kocom/myhome/elevator/state",
             'val_tpl': "{{ value_json.state }}",
@@ -635,9 +637,31 @@ def publish_discovery(dev, sub=''):
         mqttc.publish(topic, json.dumps(payload))
         if logtxt != "" and config.get('Log', 'show_mqtt_publish') == 'True':
             logging.info(logtxt)
+
+        #Elevator Floors
+        topic = 'homeassistant/sensor/kocom_elevator_floors/config'
+        payload = {
+            'name': 'Kocom Elevator Floors',
+            'ic': 'mdi:elevator',
+            'stat_t': "kocom/myhome/elevator/state",
+            'val_tpl': "{{ value_json.floor }}",
+            'qos': 0,
+            'uniq_id': '{}_{}_{}'.format('kocom', 'wallpad', dev),
+            'device': {
+                'name': '코콤 스마트 월패드',
+                'ids': 'kocom_smart_wallpad',
+                'mf': 'KOCOM',
+                'mdl': '스마트 월패드',
+                'sw': SW_VERSION
+            }
+        }
+        logtxt='[MQTT Discovery|{}] data[{}]'.format(dev, topic)
+        mqttc.publish(topic, json.dumps(payload))
+        if logtxt != "" and config.get('Log', 'show_mqtt_publish') == 'True':
+            logging.info(logtxt)
     elif dev == 'light':
         for num in range(1, int(config.get('User', 'light_count'))+1):
-            #ha_topic = 'homeassistant/light/kocom_livingroom_light1/config'
+            #topic = 'homeassistant/light/kocom_livingroom_light1/config'
             topic = 'homeassistant/light/kocom_livingroom_light{}/config'.format(num)
             payload = {
                 'name': 'Kocom Livingroom Light{}'.format(num),
@@ -662,7 +686,7 @@ def publish_discovery(dev, sub=''):
                 logging.info(logtxt)
     elif dev == 'thermo':
         num= int(room_h_dic.get(sub))
-        #ha_topic = 'homeassistant/climate/kocom_livingroom_thermostat/config'
+        #topic = 'homeassistant/climate/kocom_livingroom_thermostat/config'
         topic = 'homeassistant/climate/kocom_{}_thermostat/config'.format(sub)
         payload = {
             'name': 'Kocom {} Thermostat'.format(sub),
@@ -696,6 +720,7 @@ def publish_discovery(dev, sub=''):
         topic = 'homeassistant/button/kocom_wallpad_query/config'
         payload = {
             'name': 'Kocom Wallpad Query',
+            'ic': 'mdi:gesture-tap',
             'cmd_t': 'kocom/myhome/query/command',
             'qos': 0,
             'uniq_id': '{}_{}_{}'.format('kocom', 'wallpad', dev),

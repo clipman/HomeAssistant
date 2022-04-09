@@ -16,12 +16,6 @@ Kocom Wallpad with RS485
 7. share/kocom/ 폴더에 있는 kocom.conf 파일을 본인의 환경에 맞게 수정합니다.
 8. "START" 버튼으로 애드온을 실행합니다.
 
-## Configuration
-
-configuration.yaml
-switchs.yaml
-climate.yaml
-이 파일들을 참고하여 설정합니다.
 
 [forum]: https://cafe.naver.com/koreassistant
 [github]: https://github.com/clipman/addons

@@ -55,7 +55,7 @@ def init_mqttc():
     mqtt_port = int(config.get('MQTT','mqtt_port'))
     for retry_cnt in range(1,31):
         try:
-            logging.log(logtxt)
+            logging.info(logtxt)
             mqttc.connect(mqtt_server, mqtt_port, 60)
             mqttc.loop_start()
             return mqttc
@@ -65,14 +65,14 @@ def init_mqttc():
     return False
 
 def mqtt_on_subscribe(mqttc, obj, mid, granted_qos):
-    logging.log("[MQTT] Subscribed: " + str(mid) + " " + str(granted_qos))
+    logging.info("[MQTT] Subscribed: " + str(mid) + " " + str(granted_qos))
 
 def mqtt_on_log(mqttc, obj, level, string):
-    logging.log("[MQTT] on_log : "+string)
+    logging.info("[MQTT] on_log : "+string)
 
 def mqtt_on_connect(mqttc, userdata, flags, rc):
     if rc == 0:
-        logging.log("[MQTT] Connected - 0: OK")
+        logging.info("[MQTT] Connected - 0: OK")
         mqttc.subscribe('kocom/#', 0)
     else:
         logging.error("[MQTT] Connection error - {}: {}".format(rc, mqtt.connack_string(rc)))
@@ -116,7 +116,7 @@ class RS485Wrapper:
             ser.stopbits = 1
             if ser.is_open == False:
                 raise Exception('Not ready')
-            logging.log('[RS485] Serial connected : {}'.format(ser))
+            logging.info('[RS485] Serial connected : {}'.format(ser))
             return ser
         except Exception as e:
             logging.error('[RS485] Serial open failure : {}'.format(e))
@@ -130,7 +130,7 @@ class RS485Wrapper:
         except Exception as e:
             logging.error('[RS485] Socket connection failure : {} | server {}, port {}'.format(e, SOCKET_SERVER, SOCKET_PORT))
             return False
-        logging.log('[RS485] Socket connected | server {}, port {}'.format(SOCKET_SERVER, SOCKET_PORT))
+        logging.info('[RS485] Socket connected | server {}, port {}'.format(SOCKET_SERVER, SOCKET_PORT))
         sock.settimeout(None)   #sock.settimeout(polling_interval+15)   # set read timeout a little bit more than polling interval
         return sock
 
@@ -185,7 +185,7 @@ class RS485Wrapper:
     def reconnect(self):
         self.close()
         while True: 
-            logging.log('[RS485] reconnecting to RS485...')
+            logging.info('[RS485] reconnecting to RS485...')
             if self.connect() != False:
                 break
             time.sleep(10)
@@ -199,10 +199,10 @@ def send_packet(send_data):
         ret = send_data
     except Exception as ex:
         logging.error("[RS485] Write error.[{}]".format(ex) )
-    logging.log('[SEND] {}'.format(send_data))
+    logging.info('[SEND] {}'.format(send_data))
 
     if ret == False:
-        logging.log('[RS485] send failed. closing RS485. it will try to reconnect to RS485 shortly.')
+        logging.info('[RS485] send failed. closing RS485. it will try to reconnect to RS485 shortly.')
         rs485.close()
     send_lock.release()
     return ret
@@ -269,7 +269,7 @@ def mqtt_on_message(mqttc, obj, msg):
     if topic_d[-1] != 'command':
         return
 
-    logging.log("[MQTT RECV] " + msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
+    logging.info("[MQTT RECV] " + msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
 
     # home_call off : kocom/myhome/home_call/command
     if 'home_call' in topic_d:
@@ -303,7 +303,7 @@ def packet_processor(p):
         mqttc.publish("kocom/myhome/gate_call/state", json.dumps(state))
 
     if logtxt != "" and config.get('Log', 'show_mqtt_publish') == 'True':
-        logging.log(logtxt)
+        logging.info(logtxt)
 
 #===== thread functions ===== 
 
@@ -327,7 +327,7 @@ def read_serial():
                     buf = not_parsed_buf[frame_start:]
             
             if not_parsed_buf != '':
-                logging.log('[comm] not parsed '+not_parsed_buf)
+                logging.info('[comm] not parsed '+not_parsed_buf)
                 not_parsed_buf = ''
 
             if len(buf) == packet_size*2:
@@ -337,7 +337,7 @@ def read_serial():
                     msg_q.put(buf)  # valid packet
                     buf=''
                 else:
-                    logging.log("[comm] invalid packet {} expected".format(buf))
+                    logging.info("[comm] invalid packet {} expected".format(buf))
                     frame_start = buf.find(header_h, len(header_h))
                     # if there's header packet in the middle of invalid packet, re-parse from that posistion
                     if frame_start < 0:
@@ -356,7 +356,7 @@ def listen_hexdata():
         d = msg_q.get()
 
         if config.get('Log', 'show_recv_hex') == 'True':
-            logging.log("[recv] " + d)
+            logging.info("[recv] " + d)
  
         p_ret = parse(d)
 
@@ -373,7 +373,7 @@ def listen_hexdata():
             if p_ret['dest_h'] == wait_target.queue[0] and p_ret['type'] == 'ack':
             #if p_ret['src_h'] == wait_target.queue[0] and p_ret['type'] == 'send':
                 if len(ack_data) != 0:
-                    logging.log("[ACK] No ack received, but responce packet received before ACK. Assuming ACK OK")
+                    logging.info("[ACK] No ack received, but responce packet received before ACK. Assuming ACK OK")
                     ack_q.put(d)
                     time.sleep(0.5)
                 wait_q.put(p_ret)

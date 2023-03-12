@@ -1,0 +1,6 @@
+# Configuration for /etc/init.d/conf
+
+CONFIGURATOR_USER=root
+CONFIGURATOR_USER_DIR=/root
+CONFIGURATOR_EXEC=$CONFIGURATOR_USER_DIR/homeassistant/bin/python
+CONFIGURATOR_ARGS="$CONFIGURATOR_USER_DIR/.homeassistant/configurator.py"

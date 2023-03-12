@@ -1,0 +1,6 @@
+# Configuration for /etc/init.d/hass
+
+HASS_USER=root
+HASS_USER_DIR=/root
+HASS_EXEC=$HASS_USER_DIR/homeassistant/bin/python
+HASS_ARGS="$HASS_USER_DIR/homeassistant/bin/hass"

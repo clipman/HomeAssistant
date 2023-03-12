@@ -1,6 +1,0 @@
-# Configuration for /etc/init.d/mosq
-
-MOSQUITTO_USER=root
-MOSQUITTO_USER_DIR=/root
-MOSQUITTO_EXEC=mosquitto
-MOSQUITTO_ARGS="-v -c /etc/mosquitto/mosquitto.conf"

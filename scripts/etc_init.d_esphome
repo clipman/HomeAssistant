@@ -22,6 +22,8 @@ PIDFILE=/var/run/esphome.pid
 # Read defaults file
 [ -r $DEFAULTS_FILE ] && . $DEFAULTS_FILE
 
+. $ESPHOME_USER_DIR/esphome/bin/activate
+
 case "$1" in
 start)  log_daemon_msg "Starting" $NAME
         start-stop-daemon --start --quiet --exec $ESPHOME_EXEC \

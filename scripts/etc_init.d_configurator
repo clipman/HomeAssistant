@@ -2,20 +2,20 @@
 # System startup script for Configurator host code
 
 ### BEGIN INIT INFO
-# Provides:          conf
+# Provides:          configurator
 # Required-Start:    $local_fs
 # Required-Stop:
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: Configurator daemon
-# Description:       Starts the Hass daemon.
+# Description:       Starts the Configurator daemon.
 ### END INIT INFO
 
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 DESC="Configurator daemon"
-NAME="conf"
-DEFAULTS_FILE=/etc/default/conf
-PIDFILE=/var/run/conf.pid
+NAME="configurator"
+DEFAULTS_FILE=/etc/default/configurator
+PIDFILE=/var/run/configurator.pid
 
 . /lib/lsb/init-functions
 
@@ -47,7 +47,7 @@ reload|force-reload)
 status)
         status_of_proc -p $PIDFILE $CONFIGURATOR_EXEC $NAME && exit 0 || exit $?
         ;;
-*)      log_action_msg "Usage: service conf {start|stop|status|restart|reload|force-reload}"
+*)      log_action_msg "Usage: service configurator {start|stop|status|restart|reload|force-reload}"
         exit 2
         ;;
 esac

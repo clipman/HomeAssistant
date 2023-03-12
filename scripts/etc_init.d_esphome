@@ -11,17 +11,16 @@
 # Description:       Starts the Hass daemon.
 ### END INIT INFO
 
-PATH=/root/.platformio/packages/toolchain-xtensa-esp32/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+# Read defaults file
+[ -r $DEFAULTS_FILE ] && . $DEFAULTS_FILE
+
+PATH=$ESPHOME_USER_DIR/.platformio/packages/toolchain-xtensa-esp32/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 DESC="esphome daemon"
 NAME="esphome"
 DEFAULTS_FILE=/etc/default/esphome
 PIDFILE=/var/run/esphome.pid
 
 . /lib/lsb/init-functions
-
-# Read defaults file
-[ -r $DEFAULTS_FILE ] && . $DEFAULTS_FILE
-
 . $ESPHOME_USER_DIR/esphome/bin/activate
 
 case "$1" in

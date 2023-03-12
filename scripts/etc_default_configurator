@@ -1,4 +1,4 @@
-# Configuration for /etc/init.d/conf
+# Configuration for /etc/init.d/configurator
 
 CONFIGURATOR_USER=root
 CONFIGURATOR_USER_DIR=/root

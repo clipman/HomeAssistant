@@ -1,0 +1,6 @@
+# Configuration for /etc/init.d/esphome
+
+ESPHOME_USER=root
+ESPHOME_USER_DIR=/root
+ESPHOME_EXEC=$ESPHOME_USER_DIR/esphome/bin/esphome
+ESPHOME_ARGS="dashboard $ESPHOME_USER_DIR/.homeassistant/esphome/"

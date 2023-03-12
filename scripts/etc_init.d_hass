@@ -45,7 +45,7 @@ reload|force-reload)
         log_end_msg 1
         ;;
 status)
-        status_of_proc -p $PIDFILE $KLIPPY_EXEC $NAME && exit 0 || exit $?
+        status_of_proc -p $PIDFILE $HASS_EXEC $NAME && exit 0 || exit $?
         ;;
 *)      log_action_msg "Usage: service hass {start|stop|status|restart|reload|force-reload}"
         exit 2

@@ -1,0 +1,7 @@
+# Configuration for /etc/init.d/kocom_call
+
+KOCOM_CALL_USER=root
+KOCOM_CALL_USER_DIR=/root
+KOCOM_CALL_INIT_DIR=$KOCOM_CALL_USER_DIR/kocom/bin
+KOCOM_CALL_EXEC=$KOCOM_CALL_USER_DIR/kocom/bin/python
+KOCOM_CALL_ARGS="$KOCOM_CALL_USER_DIR/kocom/bin/kocom_call.py"

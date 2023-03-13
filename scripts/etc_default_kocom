@@ -1,0 +1,7 @@
+# Configuration for /etc/init.d/kocom
+
+KOCOM_USER=root
+KOCOM_USER_DIR=/root
+KOCOM_INIT_DIR=$KOCOM_USER_DIR/kocom/bin
+KOCOM_EXEC=$KOCOM_USER_DIR/kocom/bin/python
+KOCOM_ARGS="$KOCOM_USER_DIR/kocom/bin/kocom.py"

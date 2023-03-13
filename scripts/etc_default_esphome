@@ -2,5 +2,6 @@
 
 ESPHOME_USER=root
 ESPHOME_USER_DIR=/root
+ESPHOME_INIT_DIR=$ESPHOME_USER_DIR/.homeassistant/esphome
 ESPHOME_EXEC=$ESPHOME_USER_DIR/esphome/bin/esphome
-ESPHOME_ARGS="dashboard $ESPHOME_USER_DIR/.homeassistant/esphome/"
+ESPHOME_ARGS="dashboard $ESPHOME_INIT_DIR"

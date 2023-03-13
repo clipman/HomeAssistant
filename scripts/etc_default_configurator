@@ -2,5 +2,6 @@
 
 CONFIGURATOR_USER=root
 CONFIGURATOR_USER_DIR=/root
+CONFIGURATOR_INIT_DIR=/root/.homeassistant
 CONFIGURATOR_EXEC=$CONFIGURATOR_USER_DIR/homeassistant/bin/python
 CONFIGURATOR_ARGS="$CONFIGURATOR_USER_DIR/.homeassistant/configurator.py"

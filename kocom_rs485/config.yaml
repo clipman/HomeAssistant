@@ -1,15 +1,15 @@
 ---
-name: Kocom Wallpad Controller with RS485
+name: Kocom Wallpad Controller with RS485(Old)
 version: 2022.04.09
 slug: kocom_rs485
-description: Kocom Wallpad Controller with RS485
+description: Kocom Wallpad Controller with RS485(Old)
 arch:
   - armhf
   - armv7
   - aarch64
   - amd64
   - i386
-url: https://github.com/clipman/addons
+url: https://github.com/clipman/HomeAssistant
 startup: application
 boot: auto
 uart: true

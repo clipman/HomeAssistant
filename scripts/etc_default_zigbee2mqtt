@@ -1,0 +1,7 @@
+# Configuration for /etc/init.d/zigbee2mqtt
+
+ZIGBEE2MQTT_USER=root
+ZIGBEE2MQTT_USER_DIR=/root
+ZIGBEE2MQTT_INIT_DIR=$ZIGBEE2MQTT_USER_DIR/zigbee2mqtt
+ZIGBEE2MQTT_EXEC=$ZIGBEE2MQTT_USER_DIR/zigbee2mqtt/bin/npm
+ZIGBEE2MQTT_ARGS="start"

@@ -22,8 +22,6 @@ PIDFILE=/var/run/zigbee2mqtt.pid
 # Read defaults file
 [ -r $DEFAULTS_FILE ] && . $DEFAULTS_FILE
 
-. $ZIGBEE2MQTT_USER_DIR/zigbee2mqtt/bin/activate
-
 case "$1" in
 start)  log_daemon_msg "Starting" $NAME
         start-stop-daemon --start --quiet --exec $ZIGBEE2MQTT_EXEC \

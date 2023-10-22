@@ -1,5 +1,5 @@
 # ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64:10.0.1
-ARG BUILD_FROM=ghcr.io/hassio-addons/base/armv7:10.0.1
+ARG BUILD_FROM=ghcr.io/home-assistant/armv7-base:3.13
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
 

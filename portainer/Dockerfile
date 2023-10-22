@@ -1,5 +1,4 @@
-# ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64:10.0.1
-ARG BUILD_FROM=ghcr.io/home-assistant/armv7-base:3.13
+ARG BUILD_FROM=ghcr.io/hassio-addons/base/aarch64:10.0.1
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
 
@@ -7,8 +6,7 @@ FROM ${BUILD_FROM}
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Setup base
-# ARG BUILD_ARCH=amd64
-ARG BUILD_ARCH=armv7
+ARG BUILD_ARCH=aarch64
 RUN \
     if [ "${BUILD_ARCH}" = "aarch64" ]; then ARCH="arm64"; fi \
     && if [ "${BUILD_ARCH}" = "armhf" ]; then ARCH="arm"; fi \

@@ -1,6 +1,6 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/base/aarch64:10.0.1
-# hadolint ignore=DL3006
-FROM ${BUILD_FROM}
+ARG BUILD_FROM
+
+FROM $BUILD_FROM AS REPOSITORY
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]

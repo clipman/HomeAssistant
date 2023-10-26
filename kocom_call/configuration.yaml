@@ -1,9 +1,9 @@
-# Kocom RS485
-button:
-  - platform: mqtt
-    name: Kocom Open Door
-    command_topic: 'kocom/myhome/home_call/command'
+# # Kocom RS485
+# button:
+#   - platform: mqtt
+#     name: Kocom Open Door
+#     command_topic: 'kocom/myhome/home_call/command'
 
-  - platform: mqtt
-    name: Kocom Open Gate
-    command_topic: 'kocom/myhome/gate_call/command'
+#   - platform: mqtt
+#     name: Kocom Open Gate
+#     command_topic: 'kocom/myhome/gate_call/command'

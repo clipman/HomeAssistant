@@ -314,6 +314,69 @@ def packet_processor(p):
     if logtxt != "" and config.get('Log', 'show_mqtt_publish') == 'True':
         logging.info(logtxt)
 
+#===== publish MQTT Devices Discovery =====
+#https://www.home-assistant.io/docs/mqtt/discovery/
+#<discovery_prefix>/<component>/<object_id>/config
+def discovery():
+    device_info = {
+        'name': '코콤 스마트 월패드',
+        'ids': 'kocom_smart_wallpad',
+        'mf': 'KOCOM',
+        'mdl': '스마트 월패드',
+        'sw': SW_VERSION
+    }
+
+    topics_payloads = [
+        ('homeassistant/button/kocom_open_door/config', {
+            'name': 'Kocom Open Door',
+            'ic': 'mdi:gesture-tap',
+            'cmd_t': 'kocom/myhome/home_call/command',
+            'qos': 0,
+            'uniq_id': 'kocom_open_door',
+            'device': device_info
+        }),
+        ('homeassistant/button/kocom_open_gate/config', {
+            'name': 'Kocom Open Gate',
+            'ic': 'mdi:gesture-tap',
+            'cmd_t': 'kocom/myhome/gate_call/command',
+            'qos': 0,
+            'uniq_id': 'kocom_open_gate',
+            'device': device_info
+        }),
+        ('homeassistant/button/kocom_bell_door/config', {
+            'name': 'Kocom Bell Door',
+            'ic': 'mdi:gesture-tap',
+            'cmd_t': 'kocom/myhome/home_bell/command',
+            'qos': 0,
+            'uniq_id': 'kocom_bell_door',
+            'device': device_info
+        }),
+        ('homeassistant/sensor/kocom_home_call/config', {
+            'name': 'Kocom Home Call',
+            'ic': 'mdi:bell-ring-outline',
+            'stat_t': 'kocom/myhome/home_call/state',
+            'val_tpl': '{{ value_json.state }}',
+            'qos': 0,
+            'uniq_id': 'kocom_home_call',
+            'device': device_info
+        }),
+        ('homeassistant/sensor/kocom_gate_call/config', {
+            'name': 'Kocom Gate Call',
+            'ic': 'mdi:bell-ring-outline',
+            'stat_t': 'kocom/myhome/gate_call/state',
+            'val_tpl': '{{ value_json.state }}',
+            'qos': 0,
+            'uniq_id': 'kocom_gate_call',
+            'device': device_info
+        })
+    ]
+
+    for topic, payload in topics_payloads:
+        logtxt = '[MQTT Discovery data[{}]'.format(topic)
+        mqttc.publish(topic, json.dumps(payload))
+        if logtxt != "" and config.get('Log', 'show_mqtt_publish') == 'True':
+            logging.info(logtxt)
+
 #===== thread functions ===== 
 
 def read_serial():
@@ -429,3 +492,5 @@ if __name__ == "__main__":
     thread_list.append(threading.Thread(target=listen_hexdata, name='listen_hexdata'))
     for thread_instance in thread_list:
         thread_instance.start()
+
+    discovery()

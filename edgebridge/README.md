@@ -3,9 +3,9 @@
 ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armhf Architecture][armhf-shield] ![Supports armv7 Architecture][armv7-shield] ![Supports i386 Architecture][i386-shield]
 
 ## About
-The forwarding bridge server (subsequently referred to as 'server') is designed as a companion to SmartThings Edge drivers that (1) need to send HTTP requests to destinations outside of the LAN, and/or (2) need to be able to receive extemperaneous HTTP messages issued by LAN-based devices and applications.
+Bridge Server(이후 '서버'라고 함)는 (1) LAN 외부의 대상으로 HTTP 요청을 보내거나 (2) HTTP 요청을 수신할 수 있어야 하는 SmartThings Edge 드라이버의 동반자로 설계되었습니다. LAN 기반 장치 및 애플리케이션에서 발행된 임시 HTTP 메시지.
 
-The server itself is simply a Python script that can be run on any 'always on' Windows/Linux/Mac/Raspberry Pi computer.  The server is provided as a 3.7x Python source script, a Windows executable program file, or a Raspberry Pi OS executable program file (32 bit and 64 bit).  It can read an optional configuration file created by the user (see below).
+서버 자체는 '항상 켜져 있는' Windows/Linux/Mac/Raspberry Pi 컴퓨터에서 실행할 수 있는 단순한 Python 스크립트입니다. 서버는 3.7x Python 소스 스크립트, Windows 실행 프로그램 파일 또는 Raspberry Pi OS 실행 프로그램 파일(32비트 및 64비트)로 제공됩니다. 사용자가 만든 선택적 구성 파일을 읽을 수 있습니다(아래 참조).
 
 ## Installation
 

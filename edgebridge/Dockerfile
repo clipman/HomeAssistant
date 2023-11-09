@@ -1,4 +1,5 @@
-FROM python:3.7
+ARG BUILD_FROM
+FROM $BUILD_FROM
 COPY run.sh edgebridge.cfg edgebridge.py /
 RUN pip install requests==2.26.0
 WORKDIR /share

@@ -10,7 +10,7 @@ Bridge Server(이후 '서버'라고 함)는 (1) LAN 외부의 대상으로 HTTP 
 ## Installation
 
 1. 홈어시스턴트의 Hass.io > ADD-ON STORE에서 Add new repository by URL에 https://github.com/clipman/HomeAssistant 를 입력한 다음 ADD 버튼을 누릅니다.
-2. ADD-ON STORE 페이지 하단에서 "Bridge Server for SmartThings Edge drivers" 클릭합니다.
+2. ADD-ON STORE 페이지 하단에서 "Bridge Server" 클릭합니다.
 3. "INSTALL" 버튼을 누르면 애드온이 설치됩니다. 최대 약 10분 정도 소요. 
 4. INSTALL 버튼위에 설치 애니메이션이 동작하는데 이것이 멈추더라도 REBUILD, START 버튼이 나타나지 않는 경우가 있습니다.
 5. 이 애드온은 이미지를 내려받는 것이 아니라 직접 여러분의 Hassio에서 이미지를 만듭니다.

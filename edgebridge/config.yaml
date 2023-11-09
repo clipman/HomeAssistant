@@ -18,3 +18,6 @@ options:
   share/edgebridge/edgebridge.cfg 설정파일: true
 schema:
   share/edgebridge/edgebridge.cfg 설정파일: bool
+startup: system
+watchdog: tcp://[HOST]:8088
+init: false

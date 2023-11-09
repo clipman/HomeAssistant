@@ -13,8 +13,8 @@ import logging
 import configparser
 
 # define -------------------------------
-SW_VERSION = '2022.04.10'
-CONFIG_FILE = 'kocom_call.conf'
+SW_VERSION = '2023.11.10'
+CONFIG_FILE = 'kocom_call.cfg'
 BUF_SIZE = 100
 
 read_write_gap = 0.03  # minimal time interval between last read to write

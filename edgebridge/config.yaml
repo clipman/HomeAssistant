@@ -16,6 +16,6 @@ uart: true
 map:
   - share:rw
 options:
-  share/edgebridge.cfg 설정파일: true
+  share/edgebridge/edgebridge.cfg 설정파일: true
 schema:
-  share/edgebridge.cfg 설정파일: bool
+  share/edgebridge/edgebridge.cfg 설정파일: bool

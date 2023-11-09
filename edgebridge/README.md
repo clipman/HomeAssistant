@@ -17,6 +17,10 @@ Bridge Server(이후 '서버'라고 함)는 (1) LAN 외부의 대상으로 HTTP 
 6. share/edgebridge/ 폴더에 있는 edgebridge.cfg 파일을 본인의 환경에 맞게 수정합니다.
 7. "시작하기" 버튼으로 애드온을 실행합니다.
 
+## Source
+
+https://github.com/toddaustin07/edgebridge
+
 [forum]: https://cafe.naver.com/koreassistant
 [github]: https://github.com/clipman/addons
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg

@@ -10,6 +10,7 @@ arch:
   - amd64
   - i386
 url: https://github.com/clipman/HomeAssistant
+uart: true
 map:
   - share:rw
 ports:

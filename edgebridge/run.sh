@@ -1,9 +1,8 @@
 #!/bin/sh
 
-SHARE_DIR=/share/edgebridge
+SHARE_DIR=/share
 
 if [ ! -f $SHARE_DIR/edgebridge.cfg ]; then
-	mkdir $SHARE_DIR
 	mv /edgebridge.cfg $SHARE_DIR
 fi
 

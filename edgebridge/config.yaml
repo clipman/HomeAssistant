@@ -12,6 +12,8 @@ arch:
 url: https://github.com/clipman/HomeAssistant
 map:
   - share:rw
+ports:
+  8088/tcp: 8088
 options:
   share/edgebridge/edgebridge.cfg 설정파일: true
 schema:

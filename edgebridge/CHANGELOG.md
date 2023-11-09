@@ -1,1 +1,1 @@
-2023.11.09 Bridge Server for SmartThings Edge drivers
+2023.11.10 Bridge Server for SmartThings Edge drivers

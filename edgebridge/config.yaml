@@ -15,7 +15,7 @@ map:
 ports:
   8088/tcp: 8088
 options:
-  share/edgebridge/edgebridge.cfg 설정파일: true
+  share/edgebridge.cfg 설정파일: true
 schema:
-  share/edgebridge/edgebridge.cfg 설정파일: bool
+  share/edgebridge.cfg 설정파일: bool
 startup: application

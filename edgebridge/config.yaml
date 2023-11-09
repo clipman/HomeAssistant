@@ -1,6 +1,6 @@
 ---
 name: Bridge Server
-version: 2023.11.10
+version: 2023.11.09
 slug: edgebridge
 description: Bridge Server for SmartThings Edge drivers
 arch:

@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.7.3
 COPY run.sh edgebridge.cfg edgebridge.py /
 RUN python3 -m pip install requests==2.26.0
 WORKDIR /share

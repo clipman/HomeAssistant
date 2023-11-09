@@ -1,6 +1,6 @@
 ---
 name: Kocom Wallpad with RS485
-version: 2022.04.10
+version: 2023.11.10
 slug: kocom
 description: Kocom Wallpad for Home Assistant
 arch:
@@ -16,6 +16,6 @@ uart: true
 map:
   - share:rw
 options:
-  share/kocom/kocom.conf 설정파일: true
+  share/kocom.cfg 설정파일: true
 schema:
-  share/kocom/kocom.conf 설정파일: bool
+  share/kocom.cfg 설정파일: bool

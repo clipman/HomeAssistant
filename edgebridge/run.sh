@@ -11,3 +11,6 @@ echo "[Info] Bridge Server for SmartThings Edge drivers"
 
 cd $SHARE_DIR
 python3 /edgebridge.py
+
+# for dev
+while true; do echo "Running..."; sleep 100; done

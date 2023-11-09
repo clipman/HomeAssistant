@@ -115,8 +115,8 @@ def http_response(server, code, responsetosend):
         if len(responsetosend) > 0:
             server.send_header("Content-Type", 'text/xml; charset="utf-8"')
             server.send_header("Content-Length", str(len(bytes(responsetosend, 'UTF-8'))))
-        # server.send_header("Date", datetime.datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S GMT"))
-        server.send_header("Date", datetime.datetime.now(datetime.UTC).strftime("%a, %d %b %Y %H:%M:%S GMT"))
+        server.send_header("Date", datetime.datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S GMT"))
+        # server.send_header("Date", datetime.datetime.now(datetime.UTC).strftime("%a, %d %b %Y %H:%M:%S GMT"))
         server.send_header("Server", 'edgeBridge')
         
         server.end_headers()

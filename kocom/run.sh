@@ -1,6 +1,7 @@
 #!/bin/sh
 
 SHARE_DIR=/share
+
 if [ ! -f $SHARE_DIR/kocom.cfg ]; then
 	mv /kocom.cfg $SHARE_DIR
 fi

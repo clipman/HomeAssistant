@@ -1,1 +1,15 @@
-
+---
+name: etc
+version: 2023.11.10
+slug: etc
+description: Linux etc scripts
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
+url: https://github.com/clipman/HomeAssistant
+map:
+  - share:rw
+startup: application

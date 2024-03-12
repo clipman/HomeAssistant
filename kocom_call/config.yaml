@@ -1,6 +1,6 @@
 ---
 name: Kocom Call with RS485
-version: 2023.11.10
+version: 2024.03.12
 slug: kocom_call
 description: Kocom Call for Home Assistant
 arch:

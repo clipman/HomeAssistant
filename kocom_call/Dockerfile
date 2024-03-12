@@ -7,6 +7,7 @@ COPY run.sh kocom_call.cfg kocom_call.py /
 # Install requirements for add-on
 RUN pip install pyserial
 RUN pip install paho-mqtt
+RUN pip install typing_extensions
 
 WORKDIR /share
 RUN chmod a+x /run.sh

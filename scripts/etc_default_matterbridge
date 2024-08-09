@@ -1,0 +1,7 @@
+# Configuration for /etc/init.d/matterbridge
+
+MATTERBRIDGE_USER=root
+MATTERBRIDGE_USER_DIR=/root
+MATTERBRIDGE_INIT_DIR=$MATTERBRIDGE_USER_DIR/Matterbridge
+MATTERBRIDGE_EXEC=/usr/local/bin/matterbridge
+MATTERBRIDGE_ARGS="-bridge -service"

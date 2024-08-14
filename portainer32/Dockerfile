@@ -2,7 +2,7 @@ ARG BUILD_FROM=ghcr.io/home-assistant/armv7-base:3.13
 FROM ${BUILD_FROM}
 
 # Set shell
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+# SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Setup base
 ARG BUILD_ARCH=armv7

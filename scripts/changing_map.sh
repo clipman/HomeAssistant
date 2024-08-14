@@ -32,13 +32,13 @@ for searchingPath in "${searchingPaths[@]}"; do
 		break
 	fi
 
-	info "'$searchingPath' 에서 hass_frontend 디렉토리 찾는중..."
+	# info "'$searchingPath' 에서 hass_frontend 디렉토리 찾는중..."
 
 	findPaths=($(find $searchingPath -name hass_frontend -type d))
 	findCnt=${#findPaths[@]}
 
 	if [ $findCnt -gt 0 ]; then
-		echo "* 작업 대상 경로 목록"
+		# echo "* 작업 대상 경로 목록"
 		for (( n = 0; n < $findCnt; n++ )); do
 			echo -e "    $(expr $n + 1)) ${findPaths[$n]}"
 
@@ -62,7 +62,7 @@ for searchingPath in "${searchingPaths[@]}"; do
 		
 		declare ES5_TARGET_FILES=($(grep -nrl 'basemaps.cartocdn.com' ./frontend_es5/*.js))
 		
-		info "frontend_es5/ 디렉토리 패치중.."
+		# info "frontend_es5/ 디렉토리 패치중.."
 		for targetFile in "${ES5_TARGET_FILES[@]}"; do
 			echo -e "  patch file : $targetFile"
 			cp $targetFile ${targetFile}.backup
@@ -79,7 +79,7 @@ for searchingPath in "${searchingPaths[@]}"; do
 		
 		declare LATEST_TARGET_FILES=($(grep -nrl 'basemaps.cartocdn.com' ./frontend_latest/*.js))
 		
-		info "frontend_latest/ 디렉토리 패치중.."
+		# info "frontend_latest/ 디렉토리 패치중.."
 		for targetFile in "${LATEST_TARGET_FILES[@]}"; do
 			echo -e "  patch file : $targetFile"
 			cp $targetFile ${targetFile}.backup

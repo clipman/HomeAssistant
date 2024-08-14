@@ -2,22 +2,16 @@
 
 set -e
 
-RED_COLOR='\033[0;31m'
-GREEN_COLOR='\033[0;32m'
-GREEN_YELLOW='\033[1;33m'
-NO_COLOR='\033[0m'
-
 declare fePath
 declare -a searchingPaths=(
 	"/usr/local/lib/"
 	"/var/lib/docker/overlay2"
 	"/root/homeassistant/lib/"
-	"$PWD"
 )
 
-function info () { echo -e "${GREEN_COLOR}INFO: $1${NO_COLOR}";}
-function warn () { echo -e "${GREEN_YELLOW}WARN: $1${NO_COLOR}";}
-function error () { echo -e "${RED_COLOR}ERROR: $1${NO_COLOR}"; if [ "$2" != "false" ]; then exit 1;fi; }
+function info () { echo -e "INFO: $1";}
+function warn () { echo -e "WARN: $1";}
+function error () { echo -e "ERROR: $1"; if [ "$2" != "false" ]; then exit 1;fi; }
 
 function checkRequirement () {
 	if [ -z "$(command -v "$1")" ]; then
@@ -41,7 +35,6 @@ for searchingPath in "${searchingPaths[@]}"; do
 		# echo "* 작업 대상 경로 목록"
 		for (( n = 0; n < $findCnt; n++ )); do
 			echo -e "    $(expr $n + 1)) ${findPaths[$n]}"
-
                         fePath=${findPaths[$n]}
 		done
 
@@ -55,10 +48,9 @@ for searchingPath in "${searchingPaths[@]}"; do
 		
 		cur_dir=${PWD##*/}
 		
-		
-		if [ $cur_dir != 'hass_frontend' ]; then
-			error "작업 경로가 올바르지 않습니다. 'hass_frontend'!! ('$cur_dir')"
-		fi
+		# if [ $cur_dir != 'hass_frontend' ]; then
+		# 	error "작업 경로가 올바르지 않습니다. 'hass_frontend'!! ('$cur_dir')"
+		# fi
 		
 		declare ES5_TARGET_FILES=($(grep -nrl 'basemaps.cartocdn.com' ./frontend_es5/*.js))
 		
@@ -70,11 +62,9 @@ for searchingPath in "${searchingPaths[@]}"; do
 			gzip -f -k $targetFile
 		done
 		
-		
 		if [ ${#ES5_TARGET_FILES[@]} -eq 0 ]; then
 			info "frontend_es5/ 디렉토리에 패치할 파일이 없습니다."
 		fi
-		
 		
 		declare LATEST_TARGET_FILES=($(grep -nrl 'basemaps.cartocdn.com' ./frontend_latest/*.js))
 		

@@ -3,6 +3,7 @@ FROM ${BUILD_FROM}
 
 # Set shell
 # SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+SHELL ["/bin/bash"]
 
 # Setup base
 ARG BUILD_ARCH=armv7

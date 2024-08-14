@@ -8,7 +8,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ARG BUILD_ARCH=amd
 RUN \
     curl -L -s \
-        "https://github.com/portainer/portainer/releases/download/2.11.1/portainer-2.11.1-linux-arm.tar.gz" \
+        "https://github.com/portainer/portainer/releases/download/2.11.1/portainer-2.11.1-linux-amd.tar.gz" \
         | tar zxvf - -C /opt/
 
 # Copy root filesystem

@@ -8,18 +8,14 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # Setup base
 ARG BUILD_ARCH=amd64
 RUN \
-    echo "BUILD_ARCH: ${BUILD_ARCH}" \
-    && case "${BUILD_ARCH}" in \
-        aarch64) ARCH="arm64" ;; \
-        armhf) ARCH="arm" ;; \
-        armv7) ARCH="arm" ;; \
-        amd64) ARCH="amd64" ;; \
-        *) echo "Unsupported architecture"; exit 1 ;; \
-    esac \
-    && echo "ARCH: ${ARCH}" \
+    if [ "${BUILD_ARCH}" = "aarch64" ]; then ARCH="arm64"; fi \
+    && if [ "${BUILD_ARCH}" = "armhf" ]; then ARCH="arm"; fi \
+    && if [ "${BUILD_ARCH}" = "armv7" ]; then ARCH="arm"; fi \
+    && if [ "${BUILD_ARCH}" = "amd64" ]; then ARCH="amd64"; fi \
+    \
     && curl -L -s \
         "https://github.com/portainer/portainer/releases/download/2.11.1/portainer-2.11.1-linux-${ARCH}.tar.gz" \
-        | tar zxvf - -C /tmp/
+        | tar zxvf - -C /opt/
 
 # Copy root filesystem
 COPY rootfs /

@@ -34,7 +34,7 @@ for searchingPath in "${searchingPaths[@]}"; do
 	if [ $findCnt -gt 0 ]; then
 		# echo "* 작업 대상 경로 목록"
 		for (( n = 0; n < $findCnt; n++ )); do
-			echo -e "    $(expr $n + 1)) ${findPaths[$n]}"
+			# echo -e "    $(expr $n + 1)) ${findPaths[$n]}"
                         fePath=${findPaths[$n]}
 		done
 

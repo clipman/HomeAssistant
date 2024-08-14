@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/home-assistant/armv7:10.0.1
+ARG BUILD_FROM=ghcr.io/home-assistant/armv7:1.0.1
 FROM ${BUILD_FROM}
 
 # Set shell

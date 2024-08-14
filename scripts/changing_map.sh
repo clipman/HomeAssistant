@@ -5,8 +5,8 @@ set -e
 declare fePath
 declare -a searchingPaths=(
 	"/usr/local/lib/"
-	"/var/lib/docker/overlay2"
 	"/root/homeassistant/lib/"
+	# "/var/lib/docker/overlay2"
 )
 
 function info () { echo -e "INFO: $1";}

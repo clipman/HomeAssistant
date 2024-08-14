@@ -19,7 +19,7 @@ RUN \
     && echo "ARCH: ${ARCH}" \
     && curl -L -s \
         "https://github.com/portainer/portainer/releases/download/2.11.1/portainer-2.11.1-linux-${ARCH}.tar.gz" \
-        | tar zxvf - -C /opt/
+        | tar zxvf - -C /tmp/
 
 # Copy root filesystem
 COPY rootfs /

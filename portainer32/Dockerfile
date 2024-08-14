@@ -1,15 +1,13 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd:10.0.1
+ARG BUILD_FROM=ghcr.io/hassio-addons/base/armv7:10.0.1
 FROM ${BUILD_FROM}
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Setup base
-ARG BUILD_ARCH=amd
+ARG BUILD_ARCH=armv7
 RUN \
-    curl -L -s \
-        "https://github.com/portainer/portainer/releases/download/2.11.1/portainer-2.11.1-linux-amd.tar.gz" \
-        | tar zxvf - -C /opt/
+    curl -L -s "https://github.com/portainer/portainer/releases/download/2.11.1/portainer-2.11.1-linux-arm.tar.gz" | tar zxvf - -C /opt/
 
 # Copy root filesystem
 COPY rootfs /

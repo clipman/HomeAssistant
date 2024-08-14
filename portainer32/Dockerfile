@@ -6,9 +6,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Setup base
 ARG BUILD_ARCH=armv7
-RUN \
-    curl -L -s "https://github.com/portainer/portainer/releases/download/2.11.1/portainer-2.11.1-linux-arm.tar.gz"
-    # curl -L -s "https://github.com/portainer/portainer/releases/download/2.11.1/portainer-2.11.1-linux-arm.tar.gz" | tar zxvf - -C /opt/
+RUN curl -L -s "https://github.com/portainer/portainer/releases/download/2.11.1/portainer-2.11.1-linux-arm.tar.gz" | tar -zxvf /opt/
 
 # Copy root filesystem
 COPY rootfs /

@@ -7,8 +7,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # Setup base
 ARG BUILD_ARCH
 
-# Example for Debian/Ubuntu based images
-RUN apt-get update && apt-get install -y wget
+RUN apk update && apk add --no-cache wget
 
 # RUN curl -L -s \
 #     "https://github.com/portainer/portainer/releases/download/2.6.2/portainer-2.6.2-linux-arm.tar.gz" \

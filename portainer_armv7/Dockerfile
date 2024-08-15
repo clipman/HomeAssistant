@@ -4,6 +4,9 @@ FROM ${BUILD_FROM}
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+# Install curl
+RUN apt-get update && apt-get install -y curl
+
 # Setup base
 ARG BUILD_ARCH
 

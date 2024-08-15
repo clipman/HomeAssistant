@@ -8,21 +8,21 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ARG BUILD_ARCH
 
 # Install curl using apk for Alpine-based images
-RUN apk add --no-cache curl
+RUN apk add --no-cache wget
 
 # RUN curl -L -s \
 #     "https://github.com/portainer/portainer/releases/download/2.6.2/portainer-2.6.2-linux-arm.tar.gz" \
 #     | tar zxvf - -C /opt/
-
-RUN curl -L -s -f \
-    "https://github.com/portainer/portainer/releases/download/2.6.2/portainer-2.6.2-linux-arm.tar.gz" \
-    | tar zxvf - -C /opt/
 
 # RUN curl -L -s -f \
 #     "https://github.com/portainer/portainer/releases/download/2.19.5/portainer-2.19.5-linux-arm.tar.gz" \
 #     -o /tmp/portainer.tar.gz && \
 #     tar zxvf /tmp/portainer.tar.gz -C /opt/ && \
 #     rm /tmp/portainer.tar.gz
+
+RUN wget -q "https://github.com/portainer/portainer/releases/download/2.6.2/portainer-2.6.2-linux-arm.tar.gz" -O /tmp/portainer.tar.gz && \
+    tar zxvf /tmp/portainer.tar.gz -C /opt/ && \
+    rm /tmp/portainer.tar.gz
 
 # Copy root filesystem
 COPY rootfs /

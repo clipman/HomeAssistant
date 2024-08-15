@@ -10,7 +10,11 @@ RUN apk add --no-cache curl
 # Setup base
 ARG BUILD_ARCH
 
-RUN curl -L -s \
+# RUN curl -L -s \
+#     "https://github.com/portainer/portainer/releases/download/2.6.2/portainer-2.6.2-linux-arm.tar.gz" \
+#     | tar zxvf - -C /opt/
+
+RUN curl -L -s -F \
     "https://github.com/portainer/portainer/releases/download/2.6.2/portainer-2.6.2-linux-arm.tar.gz" \
     | tar zxvf - -C /opt/
 

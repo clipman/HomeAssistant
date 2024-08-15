@@ -8,6 +8,7 @@ url: >-
 arch:
   - aarch64
   - amd64
+  - armv7
 discovery:
   - matter
 hassio_api: true

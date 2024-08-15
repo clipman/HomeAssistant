@@ -8,7 +8,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ARG BUILD_ARCH
 
 RUN curl -L -s \
-    "https://github.com/portainer/portainer/releases/download/2.6.2/portainer-2.6.2-linux-arm.tar.gz" \
+    "https://github.com/portainer/portainer/releases/download/1.24.2/portainer-1.24.2-linux-arm.tar.gz" \
     | tar zxvf - -C /opt/
 
 # Copy root filesystem

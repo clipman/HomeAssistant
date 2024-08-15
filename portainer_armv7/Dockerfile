@@ -4,11 +4,11 @@ FROM ${BUILD_FROM}
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# Install curl using apk for Alpine-based images
-RUN apk add --no-cache curl
-
 # Setup base
 ARG BUILD_ARCH
+
+# Install curl using apk for Alpine-based images
+RUN apk add --no-cache curl
 
 # RUN curl -L -s \
 #     "https://github.com/portainer/portainer/releases/download/2.6.2/portainer-2.6.2-linux-arm.tar.gz" \

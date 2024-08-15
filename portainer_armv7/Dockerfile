@@ -4,8 +4,8 @@ FROM ${BUILD_FROM}
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# Install curl
-RUN apt-get update && apt-get install -y curl
+# Install curl using apk for Alpine-based images
+RUN apk add --no-cache curl
 
 # Setup base
 ARG BUILD_ARCH

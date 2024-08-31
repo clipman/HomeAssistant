@@ -1,0 +1,19 @@
+---
+name: MQTT-TCP Bridge Server
+version: 2024.08.31
+slug: mqttbridge
+description: MQTT-TCP Bridge Server
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
+url: https://github.com/clipman/HomeAssistant
+map:
+  - share:rw
+options:
+  share/mqttbridge.cfg 설정파일: true
+schema:
+  share/mqttbridge.cfg 설정파일: bool
+startup: application

@@ -6,7 +6,7 @@ url: https://github.com/clipman/HomeAssistant/matterbridge
 homeassistant: 2024.1.0
 homeassistant_api: true
 host_network: true
-image: luligu/matterbridge/{arch}
+image: luligu/matterbridge:1.5.2
 init: false
 arch:
   - aarch64

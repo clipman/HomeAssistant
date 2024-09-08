@@ -6,9 +6,9 @@ url: https://github.com/clipman/HomeAssistant
 homeassistant: 2024.1.0
 homeassistant_api: true
 host_network: true
-volumes:
-  - /root/Matterbridge
-  - /root/.matterbridge
+# volumes:
+#   - /root/Matterbridge
+#   - /root/.matterbridge
 image: docker.io/letsfly/matterbridge-addon
 init: false
 arch:

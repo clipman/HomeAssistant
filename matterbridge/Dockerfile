@@ -1,17 +1,12 @@
-ARG BUILD_FROM=luligu/matterbridge
-FROM $BUILD_FROM
-
-# webinterface
+FROM luligu/matterbridge:latest
 EXPOSE 8283
-# Matter
 EXPOSE 5540
 
 RUN mkdir /app
 WORKDIR /app
 
 RUN \
-    ln -s /config /root/.matterbridge && \
-    npm install -g matterbridge matterbridge-home-assistant matterbridge-zigbee2mqtt
+    ln -s /config /root/.matterbridge
 
 COPY run.sh run.sh
 RUN chmod a+x run.sh

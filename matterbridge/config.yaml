@@ -1,5 +1,5 @@
-version: "1.5.2"
 slug: matterbridge
+version: "1.5.2"
 name: Matterbridge Server
 description: Populate your Home Assistant instance as Matter Bridge.
 url: https://github.com/clipman/HomeAssistant/matterbridge
@@ -14,7 +14,11 @@ arch:
   - armv7
 webui: http://[HOST]:[PORT:8283]/
 map:
-  - addon_config:rw
+  - config:rw
+  - ssl
+  - share:rw
+  - addons:rw
+  - media:rw
 options:
   include_domains: []
   include_patterns: []

@@ -6,13 +6,16 @@ url: https://github.com/clipman/HomeAssistant/matterbridge
 homeassistant: 2024.1.0
 homeassistant_api: true
 host_network: true
-image: luligu/matterbridge:1.5.2
+image: ghcr.io/hassio-addons/base-nodejs:0.2.3
 init: false
 arch:
   - aarch64
   - amd64
   - armv7
 webui: http://[HOST]:[PORT:8283]/
+ports:
+  8283/tcp: 8283
+  5540/tcp: 5540
 map:
   - config:rw
   - ssl

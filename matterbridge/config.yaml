@@ -27,8 +27,6 @@ options:
   exclude_patterns: []
   exclude_labels: []
   exclude_platforms: []
-  # frontend_port: 8283
-  # matter_port: 5540
   overrides: |
     {
       "domains": {

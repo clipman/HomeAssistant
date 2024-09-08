@@ -17,6 +17,7 @@ ports:
   8283/tcp: 8283
   5540/tcp: 5540
 map:
+  - addon_config:rw
   - config:rw
   - ssl
   - share:rw

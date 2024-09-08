@@ -1,13 +1,14 @@
 slug: matterbridge
-version: "1.5.2"
+# version: "1.5.2"
+version: "0.2.3"
 name: Matterbridge Server
 description: Populate your Home Assistant instance as Matter Bridge.
 url: https://github.com/clipman/HomeAssistant
 homeassistant: 2024.1.0
 homeassistant_api: true
 host_network: true
-# image: ghcr.io/hassio-addons/base-nodejs:0.2.3
-image: luligu/matterbridge
+image: ghcr.io/hassio-addons/base-nodejs
+# image: luligu/matterbridge
 init: false
 arch:
   - aarch64

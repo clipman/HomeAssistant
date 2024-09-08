@@ -7,7 +7,7 @@ homeassistant: 2024.1.0
 homeassistant_api: true
 host_network: true
 # image: ghcr.io/hassio-addons/base-nodejs:0.2.3
-image: ghcr.io/t0bst4r/matterbridge-home-assistant-addon/{arch}
+image: luligu/matterbridge
 init: false
 arch:
   - aarch64

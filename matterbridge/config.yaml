@@ -10,6 +10,7 @@ image: docker.io/letsfly/matterbridge-addon
 init: false
 arch:
   - aarch64
+  - amd64
   - armv7
 webui: http://[HOST]:[PORT:8283]/
 map:

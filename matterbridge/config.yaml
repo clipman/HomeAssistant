@@ -6,7 +6,7 @@ url: https://github.com/clipman/HomeAssistant
 homeassistant: 2024.1.0
 homeassistant_api: true
 host_network: true
-image: docker.io/letsfly/matterbridge-addon
+image: docker.io/letsfly/matterbridge-addon/{arch}
 init: false
 arch:
   - aarch64

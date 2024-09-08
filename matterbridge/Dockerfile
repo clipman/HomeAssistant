@@ -1,5 +1,5 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/base-nodejs:0.2.3
-FROM $BUILD_FROM
+# ARG BUILD_FROM=ghcr.io/hassio-addons/base-nodejs:0.2.3
+# FROM $BUILD_FROM
 FROM node:18
 
 EXPOSE 8283

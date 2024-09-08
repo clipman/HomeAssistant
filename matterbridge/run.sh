@@ -52,6 +52,6 @@ export MHA_CONFIG
 matterbridge -add matterbridge-home-assistant
 matterbridge -add matterbridge-zigbee2mqtt
 
-MATTERBRIDGE_OPTIONS=("-bridge" "-docker" "-port $MATTER_PORT" "-frontend $FRONTEND_PORT")
+MATTERBRIDGE_OPTIONS=("-bridge" "-docker")
 
 matterbridge "${MATTERBRIDGE_OPTIONS[@]}"

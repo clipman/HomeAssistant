@@ -11,9 +11,9 @@ ports:
   5540/tcp: 5540
 map:
   - addon_config:rw
-volumes:
-  - /root/Matterbridge
-  - /root/.matterbridge
+# volumes:
+#   - /root/Matterbridge
+#   - /root/.matterbridge
 image: luligu/matterbridge
 init: false
 options:

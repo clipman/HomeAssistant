@@ -11,9 +11,9 @@ WORKDIR /app
 
 RUN \
     ln -s /config /root/.matterbridge && \
-    npm install -g matterbridge@1.5.2 && \
-    npm install -g matterbridge-home-assistant@1.9.0 && \
-    npm install -g matterbridge-zigbee2mqtt@2.1.14 && \
+    npm install -g matterbridge && \
+    npm install -g matterbridge-home-assistant && \
+    npm install -g matterbridge-zigbee2mqtt && \
     matterbridge -add matterbridge-home-assistant && \
     matterbridge -add matterbridge-zigbee2mqtt
 

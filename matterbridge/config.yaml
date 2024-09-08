@@ -51,6 +51,4 @@ schema:
     - str?
   exclude_platforms:
     - str?
-  frontend_port: int
-  matter_port: int
   overrides: str

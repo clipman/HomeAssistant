@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/base-nodejs:0.2.3
+ARG BUILD_FROM=ghcr.io/hassio-addons/base-nodejs:d6f5a5a
 FROM $BUILD_FROM
 
 # webinterface

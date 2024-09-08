@@ -49,8 +49,8 @@ echo "#############################"
 export LOG_LEVEL
 export MHA_CONFIG
 
-# matterbridge -add matterbridge-home-assistant
-# matterbridge -add matterbridge-zigbee2mqtt
+matterbridge -add matterbridge-home-assistant
+matterbridge -add matterbridge-zigbee2mqtt
 
 MATTERBRIDGE_OPTIONS=("-bridge" "-docker")
 

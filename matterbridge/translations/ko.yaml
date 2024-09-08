@@ -57,5 +57,5 @@ configuration:
     name: 도메인 또는 엔터티 별 구성
     description: |
       일부 도메인은 전체 도메인 또는 개별 엔터티에 적용되는 특별한 구성 옵션을 가질 수 있습니다.
-      자세한 내용은 문서(https://github.com/t0bst4r/matterbridge-home-assistant/blob/main/packages/matterbridge-home-assistant/README.md#config-structure)를 참조하세요!
+      자세한 내용은 문서를 참조하세요!
       이 값을 변경하려면 충분한 지식이 있어야 합니다!

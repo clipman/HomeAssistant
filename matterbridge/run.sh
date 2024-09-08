@@ -49,16 +49,6 @@ echo "#############################"
 export LOG_LEVEL
 export MHA_CONFIG
 
-# if grep -q /app/node_modules/matterbridge-home-assistant ~/.matterbridge/storage/.matterbridge/*; then
-#   sed -i 's/\/app\/node_modules\/matterbridge-home-assistant/\/usr\/local\/lib\/node_modules\/matterbridge-home-assistant/g' ~/.matterbridge/storage/.matterbridge/*
-# fi
-
-npm install -g matterbridge@1.5.2 && \
-npm install -g matterbridge-home-assistant@1.9.0 && \
-npm install -g matterbridge-zigbee2mqtt@2.1.14
-matterbridge -add matterbridge-home-assistant
-matterbridge -add matterbridge-zigbee2mqtt
-
 MATTERBRIDGE_OPTIONS=("-bridge" "-docker" "-port $MATTER_PORT" "-frontend $FRONTEND_PORT")
 
 matterbridge "${MATTERBRIDGE_OPTIONS[@]}"

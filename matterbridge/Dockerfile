@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/base-nodejs:d6f5a5a
+ARG BUILD_FROM=luligu/matterbridge
 FROM $BUILD_FROM
 
 # webinterface

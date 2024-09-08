@@ -10,7 +10,8 @@ RUN mkdir /app
 WORKDIR /app
 
 RUN \
-    ln -s /config /root/.matterbridge
+    ln -s /config /root/.matterbridge && \
+    npm install -g matterbridge@1.5.2 matterbridge-home-assistant matterbridge-zigbee2mqtt@2.1.14
 
 COPY run.sh run.sh
 RUN chmod a+x run.sh

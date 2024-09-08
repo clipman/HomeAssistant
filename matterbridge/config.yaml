@@ -1,21 +1,25 @@
 name: Matterbridge Server
-version: "1.5.4"
+version: "2.9.0-PSA-121"
+# version: "1.5.4"
 slug: matterbridge_server
-description: Matterbridge Server addon for Home Assistant
-startup: before
-boot: auto
-network_mode: host
-webui: http://[HOST]:[PORT:8283]/
-ports:
-  8283/tcp: 8283
-  5540/tcp: 5540
-map:
-  - addon_config:rw
+description: Populate your Home Assistant instance as Matter Bridge Server.
+url: https://github.com/clipman/HomeAssistant
+homeassistant: 2024.1.0
+homeassistant_api: true
+host_network: true
 volumes:
   - /root/Matterbridge
   - /root/.matterbridge
-image: luligu/matterbridge
+image: ghcr.io/t0bst4r/matterbridge-home-assistant-addon/{arch}
+# image: luligu/matterbridge
 init: false
+arch:
+  - aarch64
+  - amd64
+  - armv7
+webui: http://[HOST]:[PORT:8283]/
+map:
+  - addon_config:rw
 options:
   include_domains: []
   include_patterns: []

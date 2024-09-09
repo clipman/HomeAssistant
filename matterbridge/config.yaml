@@ -18,7 +18,7 @@ map:
 options:
   include_domains: []
   include_patterns: []
-  include_labels: []
+  include_labels: ['matterbridge']
   include_platforms: []
   exclude_domains: []
   exclude_patterns: []

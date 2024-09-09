@@ -1,1 +1,1 @@
-2024.09.1: MQTT-TCP Bridge Server
+2024.08.31: MQTT-TCP Bridge Server

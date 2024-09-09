@@ -1,5 +1,5 @@
 name: Matterbridge Server
-version: 2024.09.2
+version: 2024.09.3
 slug: matterbridge_server
 description: Populate your Home Assistant instance as Matter Bridge Server.
 url: https://github.com/clipman/HomeAssistant

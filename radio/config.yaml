@@ -2,6 +2,10 @@ name: Korea Internet Radio for Home Assistant
 version: 2024.09.1
 slug: radio
 description: Korea Internet Radio for Home Assistant
+url: https://github.com/clipman/HomeAssistant
+homeassistant: 2024.1.0
+homeassistant_api: true
+host_network: true
 image: docker.io/letsfly/radio-addon
 arch:
   - aarch64
@@ -10,7 +14,6 @@ arch:
 ports:
   "3005/tcp": 3005
 webui: "http://[HOST]:[PORT:3005]"
-url: https://github.com/clipman/HomeAssistant
 startup: application
 boot: auto
 audio: true

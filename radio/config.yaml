@@ -2,6 +2,7 @@ name: Korea Internet Radio for Home Assistant
 version: 2024.09.1
 slug: radio
 description: Korea Internet Radio for Home Assistant
+image: docker.io/letsfly/radio-addon
 arch:
   - aarch64
   - amd64

@@ -5,4 +5,5 @@
 - Bridge Server for SmartThings Edge drivers
 - MqttBridge
 - Matter Bridge Server v2024.09.1
+- Korea Radio
 - Hyperion.NG

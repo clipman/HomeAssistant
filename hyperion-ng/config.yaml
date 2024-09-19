@@ -2,9 +2,9 @@ name: Hyperion.NG
 version: "2.0.16"
 slug: hyperionng
 description: >
-  Hyperion is an open-source Bias or Ambient Lighting implementation by the
-  Hyperion-Project. This add-on is not supported or endorsed by the Hyperion Project 
-  and may not work with hardware capture cards or LED devices due to limitations of containers.
+  Hyperion은 Hyperion 프로젝트에서 개발한 오픈 소스 바이어스 또는 앰비언트 조명 구현체입니다.
+  이 애드온은 Hyperion 프로젝트에서 지원하거나 승인한 것이 아니며,
+  컨테이너의 한계로 인해 하드웨어 캡처 카드나 LED 장치에서 작동하지 않을 수 있습니다.
 url: https://hyperion-project.org/
 arch:
   - amd64

@@ -46,7 +46,6 @@ echo "#############################"
 export LOG_LEVEL
 export MHA_CONFIG
 
-# Workaround to fix https://github.com/t0bst4r/matterbridge-home-assistant/issues/115
 if grep -q /app/node_modules/matterbridge-home-assistant ~/.matterbridge/storage/.matterbridge/*; then
   sed -i 's/\/app\/node_modules\/matterbridge-home-assistant/\/usr\/local\/lib\/node_modules\/matterbridge-home-assistant/g' ~/.matterbridge/storage/.matterbridge/*
 fi

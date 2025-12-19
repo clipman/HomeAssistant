@@ -4,7 +4,14 @@ import uuid
 import requests
 import os
 
-WEBHOOK_URL = os.getenv("WEBHOOK_URL")
+options_path = "/data/options.json"
+
+if os.path.exists(options_path):
+    with open(options_path) as f:
+        options = json.load(f)
+        WEBHOOK_URL = options.get("webhook_url")
+else:
+    WEBHOOK_URL = None
 
 
 def send(msg):

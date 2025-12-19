@@ -3,6 +3,7 @@ import json
 import uuid
 import requests
 import os
+import time
 
 options_path = "/data/options.json"
 
@@ -107,7 +108,18 @@ def handle_tools_call(msg):
 
 # 🔁 Main loop
 while True:
-    msg = read()
+    try:
+        line = sys.stdin.readline()
+        if not line:
+            time.sleep(0.1)
+            continue
+
+        msg = json.loads(line)
+    except json.JSONDecodeError:
+        continue
+    except Exception as e:
+        continue
+
     method = msg.get("method")
 
     if method == "initialize":
@@ -116,12 +128,3 @@ while True:
         handle_tools_list(msg)
     elif method == "tools/call":
         handle_tools_call(msg)
-    else:
-        send({
-            "jsonrpc": "2.0",
-            "id": msg.get("id"),
-            "error": {
-                "code": -32601,
-                "message": f"Method {method} not supported"
-            }
-        })

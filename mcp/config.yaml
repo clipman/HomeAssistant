@@ -1,5 +1,5 @@
 name: MCP Server
-version: "0.1.2"
+version: "0.1.3"
 slug: mcp
 description: Python stdio MCP server for n8n
 arch:

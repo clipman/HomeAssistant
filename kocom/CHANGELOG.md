@@ -1,4 +1,4 @@
-2025.12.23 Fixed fan on/off state
+2025.12.24 Fixed fan on/off state
 
 2024.03.12 paho-mqtt-2.0.0 지원
 
